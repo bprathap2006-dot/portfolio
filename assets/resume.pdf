@@ -1,0 +1,91 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1880 >>
+stream
+BT
+/F1 18 Tf
+50 750 Td
+(PRATHAP B - CURRICULUM VITAE) Tj
+/F1 10 Tf
+0 -20 Td
+(Kallakurichi, Tamil Nadu | +91 9363545650 | bprathap2006@gmail.com | github.com/bprathap2006-dot) Tj
+0 -25 Td
+/F1 12 Tf
+(EDUCATION) Tj
+/F1 10 Tf
+0 -15 Td
+(A.K.T Memorial College Of Engineering And Technology, India (Sep 2023 - Apr 2027)) Tj
+0 -12 Td
+(Bachelor of Technology in Information Technology - CGPA: 7.78) Tj
+0 -15 Td
+(Government Boys Higher Secondary School, Kallakurichi - HSC (Class XII): 72.33%) Tj
+0 -25 Td
+/F1 12 Tf
+(TECHNICAL SKILLS) Tj
+/F1 10 Tf
+0 -15 Td
+(Programming Languages: Java, Python, SQL | Frameworks: Spring Boot, TensorFlow, Librosa, Scapy) Tj
+0 -12 Td
+(Developer Tools: VS Code, Git, GitHub | Concepts: OOP, Data Structures, DBMS, Reinforcement Learning) Tj
+0 -25 Td
+/F1 12 Tf
+(INTERNSHIP) Tj
+/F1 10 Tf
+0 -15 Td
+(Hanon System Pvt. Ltd., Chennai - INTERN TRAINEE (July 2025)) Tj
+0 -12 Td
+(- Gained hands-on experience in automotive manufacturing and industrial operations.) Tj
+0 -12 Td
+(- Learned production processes, quality standards, workplace safety, and process monitoring.) Tj
+0 -25 Td
+/F1 12 Tf
+(PROJECTS & PUBLICATIONS) Tj
+/F1 10 Tf
+0 -15 Td
+(DeepShield: AI-Based Fake Voice Detection System Using Deep Learning (Final Year Project)) Tj
+0 -12 Td
+(Technologies: Python, TensorFlow, Librosa, NumPy, Scikit-learn) Tj
+0 -15 Td
+(RL-Based Zero-Day Attack Mitigation Framework - Published in 4th International Conference (2026)) Tj
+0 -12 Td
+(Technologies: Python, TensorFlow, Scapy, Gymnasium Reinforcement Learning) Tj
+0 -25 Td
+/F1 12 Tf
+(CERTIFICATIONS & ACTIVITIES) Tj
+/F1 10 Tf
+0 -15 Td
+(- Programming in Java - NPTEL Certified) Tj
+0 -12 Td
+(- TCS iON NQT - IT (In Progress)) Tj
+0 -12 Td
+(- Project Expo Demonstrator at St. Anne's College of Engineering and Technology) Tj
+0 -12 Td
+(- One-Day Workshop on Explainable AI (XAI), Idhaya Engineering College for Women) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000002173 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+2243
+%%EOF
