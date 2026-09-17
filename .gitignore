@@ -1,0 +1,49 @@
+# ============================================================
+# .gitignore — Prathap B Portfolio (Static + Cloudflare Pages)
+# ============================================================
+
+# ── OS & Editor ─────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# ── Wrangler / Cloudflare Local Dev ─────────────────────────
+.wrangler/
+.dev.vars
+.env
+.env.*
+!.env.example
+
+# ── Node (in case npm is ever introduced) ───────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ── Build artefacts (none currently, but future-proofed) ────
+dist/
+build/
+out/
+.cache/
+
+# ── Secrets & local overrides ────────────────────────────────
+*.pem
+*.key
+secrets.toml
+wrangler.local.toml
+
+# ── Logs & temp files ────────────────────────────────────────
+*.log
+*.tmp
+*.temp
