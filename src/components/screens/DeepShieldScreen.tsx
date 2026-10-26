@@ -1,26 +1,24 @@
 import React, { useState } from 'react';
-import { useGame } from '../../context/GameContext';
-import { soundEngine } from '../../utils/soundEngine';
 import { projectsData } from '../../data/projectsData';
+import { profileData } from '../../data/profileData';
 import { 
   ArrowLeft, 
   Radio, 
-  Layers, 
   Copy, 
-  Check, 
-  ExternalLink, 
-  Compass, 
-  Activity
+  Check
 } from 'lucide-react';
+import { GithubIcon } from '../ui/BrandIcons';
 
-export const DeepShieldScreen: React.FC = () => {
-  const { navigateTo } = useGame();
+interface DeepShieldScreenProps {
+  onBack?: () => void;
+}
+
+export const DeepShieldScreen: React.FC<DeepShieldScreenProps> = ({ onBack }) => {
   const [copied, setCopied] = useState(false);
-  const [activeStep, setActiveStep] = useState(2); // default Librosa extraction step
+  const [activeStep, setActiveStep] = useState(2);
   const project = projectsData[0];
 
   const handleCopyTitle = () => {
-    soundEngine.playSuccess();
     navigator.clipboard.writeText(project.fullTitle);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
@@ -59,228 +57,195 @@ export const DeepShieldScreen: React.FC = () => {
     },
   ];
 
+  const handleBack = () => {
+    if (onBack) {
+      onBack();
+    } else {
+      window.location.href = '/#projects';
+    }
+  };
+
   return (
-    <div className="relative min-h-[92vh] pt-20 pb-16 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in font-sans">
-      
-      {/* Navigation Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-cyan-900/40 mb-8">
-        <div>
-          <div className="flex items-center space-x-2 text-xs font-mono text-cyan-400 mb-1">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-            <span>MISSION BRIEFING // 0x3D_AUDIO</span>
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-display font-black text-white tracking-tight">
-            DeepShield: <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-violet-400">AI Fake Voice Detection</span>
-          </h1>
-        </div>
-
-        <div className="flex items-center space-x-3">
-          <button
-            onClick={() => { soundEngine.playSelect(); navigateTo('/projects'); }}
-            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-mono text-xs transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>RETURN TO PROJECTS</span>
-          </button>
-          
-          <button
-            onClick={() => { soundEngine.playSelect(); navigateTo('/'); }}
-            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-cyan-950 hover:bg-cyan-900 text-cyan-300 border border-cyan-700 font-mono text-xs transition-colors"
-          >
-            <Compass className="w-3.5 h-3.5" />
-            <span>WORLD MAP</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Hero Mission Card */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-10">
+    <div className="min-h-screen bg-[#faf9f6] text-slate-900 pt-24 pb-16 px-4 sm:px-6 lg:px-8 font-sans animate-fade-in">
+      <div className="max-w-6xl mx-auto space-y-8">
         
-        {/* Left Column: Mission Details (Col 7) */}
-        <div className="lg:col-span-7 space-y-6">
-          <div className="p-6 sm:p-7 rounded-3xl bg-[#080d1a] border border-cyan-500/30 shadow-xl space-y-4">
-            
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-cyan-950 text-cyan-300 border border-cyan-700">
-                {project.category}
-              </span>
-              <span className="px-3 py-1 rounded-full text-xs font-mono bg-amber-950/70 text-amber-300 border border-amber-600/50">
-                Status: {project.status}
-              </span>
+        {/* Navigation Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
+          <div>
+            <div className="inline-flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-blue-600 mb-1">
+              <span>// Project Architecture Dossier</span>
             </div>
-
-            <div>
-              <h2 className="text-xl font-display font-bold text-white">
-                {project.fullTitle}
-              </h2>
-              <p className="text-xs font-mono text-slate-400 mt-1">
-                B.Tech IT Final-Year Engineering Project
-              </p>
-            </div>
-
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              {project.fullDescription}
+            <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-slate-900 tracking-tight">
+              DeepShield: <span className="text-blue-600">AI Fake Voice Detection</span>
+            </h1>
+            <p className="text-xs sm:text-sm text-slate-600 font-sans mt-0.5">
+              Deep learning acoustic forensics identifying synthetic vocal cloning artifacts.
             </p>
+          </div>
 
-            {/* Actions: Copy Title + Repo Link */}
-            <div className="pt-2 flex flex-wrap gap-3">
-              <button
-                onClick={handleCopyTitle}
-                className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs font-mono transition-colors"
-              >
-                {copied ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-emerald-400" />
-                    <span className="text-emerald-400">Copied to Clipboard!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>Copy Full Project Title</span>
-                  </>
-                )}
-              </button>
+          <div className="flex items-center space-x-3">
+            <button
+              onClick={handleBack}
+              className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-full bg-white hover:bg-slate-100 text-slate-700 text-xs font-semibold border border-slate-200 shadow-soft-sm transition-all hover:-translate-y-0.5"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Back to Projects</span>
+            </button>
+          </div>
+        </div>
 
-              {project.repoUrl && (
+        {/* Hero Project Card */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* Left Column: Project Details (Col 7) */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="p-7 sm:p-9 rounded-3xl bg-white border border-slate-200/90 shadow-soft-sm space-y-4">
+              
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                  {project.category}
+                </span>
+                <span className="px-3 py-1 rounded-full text-xs font-medium bg-amber-50 text-amber-800 border border-amber-200">
+                  Status: {project.status}
+                </span>
+              </div>
+
+              <div>
+                <h2 className="text-xl font-display font-extrabold text-slate-900">
+                  {project.fullTitle}
+                </h2>
+                <p className="text-xs text-slate-600 mt-1 font-medium">
+                  B.Tech IT Final-Year Engineering Project &bull; In Progress
+                </p>
+              </div>
+
+              <p className="text-sm text-slate-600 leading-relaxed font-sans">
+                {project.fullDescription}
+              </p>
+
+              {/* Technologies Grid */}
+              <div className="pt-2 border-t border-slate-100 space-y-2">
+                <span className="text-xs font-semibold text-slate-700 block uppercase tracking-wider">
+                  Core Technologies:
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map((tech, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 rounded-lg bg-slate-100 text-slate-800 text-xs font-medium"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-3 border-t border-slate-100 flex flex-wrap gap-3 items-center">
+                <button
+                  onClick={handleCopyTitle}
+                  className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-medium transition-colors"
+                >
+                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-slate-600" />}
+                  <span>{copied ? 'Title Copied' : 'Copy Project Title'}</span>
+                </button>
+
                 <a
-                  href={project.repoUrl}
+                  href={project.repoUrl || profileData.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-cyan-950 hover:bg-cyan-900 text-cyan-300 border border-cyan-500 text-xs font-mono transition-colors"
+                  className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition-colors"
                 >
-                  <span>View Repository</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
+                  <GithubIcon className="w-3.5 h-3.5" />
+                  <span>GitHub Profile</span>
                 </a>
-              )}
-            </div>
-          </div>
-
-          {/* Key Architectural Highlights */}
-          <div className="p-6 rounded-3xl bg-[#080d1a] border border-slate-800 space-y-3">
-            <h3 className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold flex items-center space-x-2">
-              <Activity className="w-4 h-4 text-cyan-400" />
-              <span>TECHNICAL APPROACH & ARCHITECTURE HIGHLIGHTS</span>
-            </h3>
-            <ul className="space-y-2.5">
-              {project.architectureHighlights.map((highlight, idx) => (
-                <li key={idx} className="flex items-start space-x-2.5 text-xs sm:text-sm text-slate-300">
-                  <span className="text-cyan-400 font-mono font-bold mt-0.5">&gt;</span>
-                  <span>{highlight}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Right Column: Interactive Waveform Simulator & Pipeline HUD (Col 5) */}
-        <div className="lg:col-span-5 space-y-6">
-          
-          {/* Animated Waveform Visualizer */}
-          <div className="p-6 rounded-3xl bg-[#070b16] border border-cyan-500/40 shadow-[0_0_35px_rgba(0,240,255,0.1)] relative overflow-hidden">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800 text-xs font-mono text-cyan-400">
-              <div className="flex items-center space-x-2">
-                <Radio className="w-4 h-4 text-cyan-400 animate-pulse" />
-                <span className="font-bold tracking-wider">SPECTRAL SIMULATOR</span>
               </div>
-              <span className="text-[10px] bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded border border-cyan-800">
-                CONCEPTUAL
-              </span>
-            </div>
-
-            {/* Dynamic Waveform Display */}
-            <div className="my-6 h-32 flex items-center justify-between gap-1 px-1">
-              {[35, 80, 25, 95, 65, 85, 45, 100, 75, 40, 90, 85, 45, 100, 70, 50, 90, 30, 65, 95, 40, 80, 55, 30].map((h, i) => (
-                <div
-                  key={i}
-                  className="w-full bg-gradient-to-t from-cyan-600 via-cyan-400 to-violet-400 rounded-full transition-all duration-300"
-                  style={{
-                    height: `${h}%`,
-                    animation: `pulse ${1.1 + (i % 6) * 0.2}s ease-in-out infinite alternate`,
-                  }}
-                />
-              ))}
-            </div>
-
-            <div className="text-[10px] font-mono text-slate-400 italic text-center">
-              * Illustrative model of MFCC acoustic energy bands across 24 frequency channels.
             </div>
           </div>
 
-          {/* Technology Stack Grid */}
-          <div className="p-6 rounded-3xl bg-[#080d1a] border border-slate-800 space-y-3 font-mono">
-            <h4 className="text-xs uppercase tracking-wider text-slate-400">
-              MISSION TOOLCHAIN
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {project.technologies.map((t, idx) => (
-                <span
-                  key={idx}
-                  className="px-3 py-1 rounded-xl bg-slate-900 border border-cyan-900/60 text-xs text-cyan-300 font-semibold"
-                >
-                  {t}
-                </span>
-              ))}
+          {/* Right Column: Audio Waveform Simulation (Col 5) */}
+          <div className="lg:col-span-5 space-y-4">
+            <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-soft-sm space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-100 text-xs font-medium text-slate-700">
+                <div className="flex items-center space-x-2">
+                  <Radio className="w-4 h-4 text-blue-600 animate-pulse" />
+                  <span>Spectral Waveform Telemetry</span>
+                </div>
+                <span className="text-[11px] font-mono text-blue-600">Librosa Audio Engine</span>
+              </div>
+
+              {/* Waveform Bar Graphic */}
+              <div className="h-32 flex items-center justify-between gap-1 p-2 bg-slate-50 rounded-2xl border border-slate-100">
+                {[30, 65, 45, 90, 60, 95, 40, 75, 100, 65, 30, 85, 70, 45, 90, 60, 40, 80, 25].map((h, i) => (
+                  <div
+                    key={i}
+                    className="w-full bg-blue-600 rounded-full transition-all duration-300"
+                    style={{ height: `${h}%` }}
+                  />
+                ))}
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-blue-50 text-xs text-blue-900 leading-relaxed space-y-1">
+                <span className="font-bold block text-blue-950">Acoustic Artifact Isolation:</span>
+                <p className="text-[11px]">
+                  Synthesized speech often exhibits unnatural Phase coherence, high-frequency harmonic smearing, and micro-prosody irregularities detectable in MFCC feature tensors.
+                </p>
+              </div>
             </div>
           </div>
 
         </div>
 
-      </div>
-
-      {/* Interactive 5-Step Pipeline Telemetry */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-[#080d1a] border border-cyan-500/30 shadow-xl space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-800">
-          <div className="flex items-center space-x-2 text-cyan-400 font-mono text-xs font-semibold">
-            <Layers className="w-4 h-4 text-cyan-400" />
-            <span>INTERACTIVE ACOUSTIC FORENSICS PIPELINE</span>
+        {/* 5-Step Pipeline Architecture Section */}
+        <div className="p-8 sm:p-10 rounded-3xl bg-white border border-slate-200/90 shadow-soft-sm space-y-6">
+          <div>
+            <span className="text-xs font-semibold uppercase tracking-wider text-blue-600 block mb-1">
+              End-to-End Forensics Pipeline
+            </span>
+            <h3 className="text-2xl font-display font-extrabold text-slate-900">
+              Acoustic Feature Extraction & Deep Classification Flow
+            </h3>
           </div>
-          <span className="text-[10px] font-mono text-slate-400">
-            Click any phase to inspect data transformation
-          </span>
-        </div>
 
-        {/* Pipeline Step Tabs */}
-        <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
-          {pipelineSteps.map((step, idx) => {
-            const isSelected = activeStep === idx;
-            return (
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+            {pipelineSteps.map((step, idx) => (
               <button
                 key={step.step}
-                onClick={() => { soundEngine.playHover(); setActiveStep(idx); }}
-                className={`p-3.5 rounded-2xl text-left font-mono transition-all border ${
-                  isSelected
-                    ? 'bg-cyan-950/80 border-cyan-400 text-white shadow-[0_0_15px_rgba(0,240,255,0.3)]'
-                    : 'bg-slate-900/60 border-slate-800 text-slate-400 hover:text-slate-200'
+                onClick={() => setActiveStep(idx)}
+                className={`p-4 rounded-2xl border text-left transition-all ${
+                  activeStep === idx
+                    ? 'bg-blue-50/70 border-blue-400 shadow-sm'
+                    : 'bg-[#faf9f6] border-slate-200 hover:border-slate-300'
                 }`}
               >
-                <div className="text-xs text-cyan-400 font-bold mb-1">
-                  PHASE [{step.step}]
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-bold text-blue-600 font-mono">
+                    STEP {step.step}
+                  </span>
+                  {activeStep === idx && (
+                    <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+                  )}
                 </div>
-                <div className="text-xs font-display font-semibold line-clamp-1">
+                <h4 className="font-display font-bold text-xs text-slate-900 line-clamp-2">
                   {step.title}
-                </div>
+                </h4>
+                <span className="text-[10px] text-slate-600 font-mono mt-2 block">
+                  {step.tool}
+                </span>
               </button>
-            );
-          })}
-        </div>
-
-        {/* Selected Step Detailed Readout */}
-        <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono text-xs">
-          <div className="space-y-1">
-            <span className="text-cyan-400 font-bold">
-              PHASE {pipelineSteps[activeStep].step}: {pipelineSteps[activeStep].title}
-            </span>
-            <p className="text-slate-300 font-sans text-sm">
-              {pipelineSteps[activeStep].desc}
-            </p>
+            ))}
           </div>
-          <div className="px-3 py-1.5 rounded-xl bg-cyan-950 text-cyan-300 border border-cyan-800 flex-shrink-0">
-            ENGINE: {pipelineSteps[activeStep].tool}
+
+          {/* Active Step Deep Dive */}
+          <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-700 leading-relaxed">
+            <strong className="text-slate-900 font-display font-bold block mb-1">
+              {pipelineSteps[activeStep].title} Details:
+            </strong>
+            <p>{pipelineSteps[activeStep].desc}</p>
           </div>
         </div>
 
       </div>
-
     </div>
   );
 };

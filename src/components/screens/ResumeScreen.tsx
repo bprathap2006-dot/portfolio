@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
-import { useGame } from '../../context/GameContext';
-import { soundEngine } from '../../utils/soundEngine';
 import { 
   ArrowLeft, 
   FileText, 
   Download, 
   ExternalLink, 
   CheckCircle2, 
-  ShieldCheck, 
-  FileCheck 
+  ShieldCheck
 } from 'lucide-react';
 
-export const ResumeScreen: React.FC = () => {
-  const { navigateTo } = useGame();
+interface ResumeScreenProps {
+  onBack?: () => void;
+}
+
+export const ResumeScreen: React.FC<ResumeScreenProps> = ({ onBack }) => {
   const [downloadState, setDownloadState] = useState<'idle' | 'downloading' | 'success'>('idle');
 
   const handleDownload = () => {
-    soundEngine.playScan();
     setDownloadState('downloading');
     const link = document.createElement('a');
     link.href = '/Prathap-B-Resume.pdf';
@@ -31,146 +30,143 @@ export const ResumeScreen: React.FC = () => {
   };
 
   const handleOpenNewTab = () => {
-    soundEngine.playSelect();
     window.open('/Prathap-B-Resume.pdf', '_blank', 'noopener,noreferrer');
   };
 
+  const handleBackToPortfolio = () => {
+    if (onBack) {
+      onBack();
+    } else {
+      window.location.href = '/';
+    }
+  };
+
   return (
-    <div className="relative min-h-[92vh] pt-20 pb-16 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in font-sans">
-      
-      {/* Sector Header with Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-cyan-900/40 mb-6">
-        <div>
-          <div className="flex items-center space-x-2 text-xs font-mono text-cyan-400 mb-1">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-            <span>ORIGINAL RESUME ARCHIVE // [VERIFIED_PDF]</span>
+    <div className="min-h-screen bg-[#faf9f6] text-slate-900 pt-24 pb-16 px-4 sm:px-6 lg:px-8 font-sans animate-fade-in">
+      <div className="max-w-6xl mx-auto space-y-6">
+        
+        {/* Top Navigation & Actions Bar */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
+          <div>
+            <div className="inline-flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-blue-600 mb-1">
+              <span>// Verified Document</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-slate-900 tracking-tight">
+              Original Curriculum Vitae: <span className="text-blue-600">Prathap B</span>
+            </h1>
+            <p className="text-xs sm:text-sm text-slate-600 mt-1 font-sans">
+              Authentic original PDF preserved byte-for-byte with unmodified layout, declaration, and signature area.
+            </p>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
-            Curriculum Vitae: <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-400">Prathap B</span>
-          </h1>
+
+          {/* Action Buttons */}
+          <div className="flex flex-wrap items-center gap-2.5">
+            <button
+              onClick={handleBackToPortfolio}
+              className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-full bg-white hover:bg-slate-100 text-slate-700 text-xs font-semibold border border-slate-200 shadow-soft-sm transition-all hover:-translate-y-0.5"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Back to Portfolio</span>
+            </button>
+
+            <button
+              onClick={handleDownload}
+              className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-soft-sm hover:shadow-soft-md transition-all hover:-translate-y-0.5"
+              title="Download original untouched PDF"
+            >
+              {downloadState === 'success' ? (
+                <>
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>Downloaded!</span>
+                </>
+              ) : (
+                <>
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Download Resume (PDF)</span>
+                </>
+              )}
+            </button>
+
+            <button
+              onClick={handleOpenNewTab}
+              className="inline-flex items-center space-x-1.5 px-4 py-2.5 rounded-full bg-white hover:bg-slate-100 text-slate-800 border border-slate-200 text-xs font-semibold shadow-soft-sm transition-all hover:-translate-y-0.5"
+              title="Open original document in dedicated tab"
+            >
+              <span>Open in New Tab</span>
+              <ExternalLink className="w-3.5 h-3.5 text-blue-600" />
+            </button>
+          </div>
         </div>
 
-        {/* Header Action Buttons */}
-        <div className="flex flex-wrap items-center gap-2.5">
-          <button
-            onClick={() => { soundEngine.playSelect(); navigateTo('/'); }}
-            className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-cyan-300 border border-slate-700 hover:border-cyan-500 font-mono text-xs transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>WORLD MAP</span>
-          </button>
-
-          <button
-            onClick={handleDownload}
-            onMouseEnter={() => soundEngine.playHover()}
-            className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-slate-950 font-bold font-mono text-xs shadow-[0_0_20px_rgba(0,240,255,0.3)] transition-all"
-            title="Download original untouched PDF"
-          >
-            {downloadState === 'success' ? (
-              <>
-                <CheckCircle2 className="w-4 h-4 text-slate-950" />
-                <span>DOWNLOAD COMPLETE</span>
-              </>
-            ) : (
-              <>
-                <Download className="w-4 h-4 text-slate-950" />
-                <span>DOWNLOAD RESUME (PDF)</span>
-              </>
-            )}
-          </button>
-
-          <button
-            onClick={handleOpenNewTab}
-            onMouseEnter={() => soundEngine.playHover()}
-            className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700 font-mono text-xs transition-colors"
-            title="Open original document in dedicated tab"
-          >
-            <span>OPEN IN NEW TAB</span>
-            <ExternalLink className="w-3.5 h-3.5 text-cyan-400" />
-          </button>
-        </div>
-      </div>
-
-      {/* Verification Notice Banner */}
-      <div className="p-4 rounded-2xl bg-cyan-950/40 border border-cyan-500/30 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs font-mono text-cyan-300">
-        <div className="flex items-center space-x-2.5">
-          <ShieldCheck className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-          <span>
-            AUTHENTIC DOCUMENT: Original unmodified 2-page PDF preserved byte-for-byte with declaration, signature area, and academic credentials.
+        {/* Verification Banner */}
+        <div className="p-4 rounded-2xl bg-blue-50/70 border border-blue-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-blue-900">
+          <div className="flex items-center space-x-2.5">
+            <ShieldCheck className="w-4 h-4 text-blue-600 flex-shrink-0" />
+            <span>
+              <strong>Byte-for-Byte Preservation:</strong> Layout, content, academic coursework, declaration, and signature areas are untouched.
+            </span>
+          </div>
+          <span className="text-[11px] font-mono text-blue-700 font-semibold flex-shrink-0">
+            SIZE: 451 KB (PDF)
           </span>
         </div>
-        <span className="px-2.5 py-1 rounded bg-slate-900 text-slate-300 border border-slate-700 flex items-center space-x-1 flex-shrink-0">
-          <FileCheck className="w-3 h-3 text-cyan-400" />
-          <span>451 KB // PDF-1.7</span>
-        </span>
-      </div>
 
-      {/* Embedded Document Viewer Container */}
-      <div className="relative rounded-3xl bg-[#080d1a] border border-cyan-500/40 p-2 sm:p-4 shadow-[0_0_50px_rgba(0,240,255,0.1)] overflow-hidden">
-        
-        {/* Frame Top Bar */}
-        <div className="flex items-center justify-between px-3 py-2 bg-slate-900/80 rounded-xl mb-3 font-mono text-[11px] text-slate-400 border border-slate-800">
-          <div className="flex items-center space-x-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-            <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-            <span className="ml-2 text-slate-300 font-semibold truncate">PRATHAPB.RESUME.pdf</span>
-          </div>
-
-          <div className="flex items-center space-x-3 text-xs">
-            <a 
-              href="/Prathap-B-Resume.pdf" 
-              download="Prathap-B-Resume.pdf"
-              className="text-cyan-400 hover:text-cyan-300 flex items-center space-x-1"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Save</span>
-            </a>
-            <a 
-              href="/Prathap-B-Resume.pdf" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-slate-300 hover:text-white flex items-center space-x-1"
-            >
-              <ExternalLink className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Full Screen</span>
-            </a>
-          </div>
-        </div>
-
-        {/* Embedded Object / Iframe Viewer */}
-        <div className="w-full h-[75vh] sm:h-[85vh] rounded-2xl overflow-hidden bg-slate-950 border border-slate-800">
-          <object
-            data="/Prathap-B-Resume.pdf"
-            type="application/pdf"
-            className="w-full h-full"
-            aria-label="Original Resume PDF of Prathap B"
-          >
-            <div className="flex flex-col items-center justify-center h-full text-center p-8 space-y-4 font-mono text-slate-300">
-              <FileText className="w-12 h-12 text-cyan-400 animate-pulse" />
-              <p className="text-sm">
-                PDF viewer plugin not detected in browser. Click below to view or download the authentic resume.
-              </p>
-              <div className="flex gap-3">
-                <button
-                  onClick={handleDownload}
-                  className="px-5 py-2.5 rounded-xl bg-cyan-400 text-slate-950 font-bold text-xs"
-                >
-                  Download PDF
-                </button>
-                <button
-                  onClick={handleOpenNewTab}
-                  className="px-5 py-2.5 rounded-xl bg-slate-800 text-white font-bold text-xs"
-                >
-                  Open in New Tab
-                </button>
-              </div>
+        {/* Embedded PDF Viewer Container */}
+        <div className="w-full rounded-2xl bg-white border border-slate-200/90 shadow-soft-xl overflow-hidden min-h-[750px] flex flex-col">
+          <div className="p-3 bg-slate-100 border-b border-slate-200 flex items-center justify-between text-xs text-slate-600 font-medium">
+            <div className="flex items-center space-x-2">
+              <FileText className="w-4 h-4 text-blue-600" />
+              <span>Prathap-B-Resume.pdf</span>
             </div>
-          </object>
+            <a
+              href="/Prathap-B-Resume.pdf"
+              download="Prathap-B-Resume.pdf"
+              className="text-blue-600 hover:underline flex items-center space-x-1"
+            >
+              <span>Download</span>
+              <Download className="w-3 h-3" />
+            </a>
+          </div>
+
+          {/* Actual Embedded Document */}
+          <div className="flex-1 w-full min-h-[720px] bg-slate-50 relative">
+            <object
+              data="/Prathap-B-Resume.pdf"
+              type="application/pdf"
+              className="w-full h-full min-h-[720px]"
+              aria-label="Prathap B Original Resume PDF Document"
+            >
+              <div className="flex flex-col items-center justify-center h-full p-8 text-center space-y-4">
+                <FileText className="w-16 h-16 text-blue-600" />
+                <h3 className="text-xl font-display font-bold text-slate-900">
+                  Prathap B — Original Resume PDF
+                </h3>
+                <p className="text-sm text-slate-600 max-w-md">
+                  Your browser does not support inline PDF viewing. You can download or view the authentic original resume directly below.
+                </p>
+                <div className="flex gap-3">
+                  <a
+                    href="/Prathap-B-Resume.pdf"
+                    download="Prathap-B-Resume.pdf"
+                    className="px-5 py-2.5 rounded-full bg-blue-600 text-white font-semibold text-xs shadow-md"
+                  >
+                    Download Resume PDF
+                  </a>
+                  <a
+                    href="/Prathap-B-Resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-5 py-2.5 rounded-full bg-slate-900 text-white font-semibold text-xs"
+                  >
+                    Open in New Tab
+                  </a>
+                </div>
+              </div>
+            </object>
+          </div>
         </div>
 
       </div>
-
     </div>
   );
 };

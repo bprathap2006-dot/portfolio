@@ -8,39 +8,55 @@ export default {
   theme: {
     extend: {
       colors: {
-        nexus: {
-          obsidian: '#05070d',
-          darkBg: '#080c16',
-          panel: '#0d1424',
-          panelBorder: '#1e293b',
-          cyan: '#00f0ff',
-          cyanGlow: 'rgba(0, 240, 255, 0.25)',
-          violet: '#8b5cf6',
-          violetGlow: 'rgba(139, 92, 246, 0.25)',
-          amber: '#f59e0b',
-          textMuted: '#94a3b8',
-          textBright: '#f8fafc',
+        studio: {
+          bg: '#faf9f6',
+          surface: '#ffffff',
+          warm: '#f5f3ee',
+          border: '#e7e5df',
+          charcoal: '#0f172a',
+          body: '#334155',
+          muted: '#64748b',
+          cobalt: '#2563eb',
+          cobaltHover: '#1d4ed8',
+          cobaltLight: '#eff6ff',
+          teal: '#0d9488',
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
         display: ['Space Grotesk', 'Inter', 'sans-serif'],
+        serif: ['Georgia', 'Cambria', 'serif'],
+      },
+      boxShadow: {
+        'soft-sm': '0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02)',
+        'soft-md': '0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03)',
+        'soft-xl': '0 20px 35px -5px rgba(15, 23, 42, 0.07), 0 10px 15px -5px rgba(15, 23, 42, 0.04)',
+        'soft-hover': '0 14px 30px -4px rgba(37, 99, 235, 0.12), 0 4px 10px -2px rgba(15, 23, 42, 0.04)',
       },
       animation: {
-        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'scanline': 'scanline 8s linear infinite',
-        'orbit-slow': 'spin 40s linear infinite',
-        'beam': 'beam 3s ease-in-out infinite',
+        'fade-in': 'fadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'fade-up': 'fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'subtle-drift': 'subtleDrift 18s ease-in-out infinite alternate',
+        'pulse-gentle': 'pulseGentle 4s ease-in-out infinite',
       },
       keyframes: {
-        scanline: {
-          '0%': { transform: 'translateY(-100%)' },
-          '100%': { transform: 'translateY(1000%)' },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
         },
-        beam: {
-          '0%, 100%': { opacity: '0.2', transform: 'scaleX(0.95)' },
-          '50%': { opacity: '0.8', transform: 'scaleX(1.05)' },
+        fadeUp: {
+          '0%': { opacity: '0', transform: 'translateY(16px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        subtleDrift: {
+          '0%': { transform: 'translate(0, 0) scale(1)' },
+          '50%': { transform: 'translate(30px, -20px) scale(1.05)' },
+          '100%': { transform: 'translate(-20px, 15px) scale(0.98)' },
+        },
+        pulseGentle: {
+          '0%, 100%': { opacity: '0.4' },
+          '50%': { opacity: '0.75' },
         }
       }
     },
