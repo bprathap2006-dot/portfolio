@@ -47,10 +47,16 @@ const SECTOR_COORDS: Record<string, { name: string; coord: string }> = {
 };
 
 export const GameProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  // Normalize pathname to known route
+  // Normalize pathname or hash to known route
   const getInitialRoute = (): NexusRoute => {
     if (typeof window === 'undefined') return '/';
-    const path = window.location.pathname.toLowerCase().replace(/\/$/, '') || '/';
+    let path = window.location.pathname.toLowerCase().replace(/\/$/, '') || '/';
+    if (path === '/' && window.location.hash) {
+      const hashPath = '/' + window.location.hash.replace(/^#\/?/, '').toLowerCase().replace(/\/$/, '');
+      if (hashPath in SECTOR_COORDS) {
+        path = hashPath;
+      }
+    }
     if (path in SECTOR_COORDS) {
       return path as NexusRoute;
     }
@@ -107,7 +113,11 @@ export const GameProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     };
 
     window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
+    window.addEventListener('hashchange', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('hashchange', handlePopState);
+    };
   }, []);
 
   // Global keyboard shortcuts (Escape, ~ for CLI)
