@@ -182,6 +182,11 @@ class SoundEngine {
     } catch {}
   }
 
+  // Terminal boot / typewriter beep
+  public playBeep() {
+    this.playKey();
+  }
+
   // Affirmative feedback sound
   public playSuccess() {
     if (!this.isEnabled) return;

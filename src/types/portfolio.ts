@@ -13,6 +13,7 @@ export interface ProfileInfo {
   githubUrl: string;
   githubUsername: string;
   linkedinUrl: string;
+  profilePhoto?: string;
   headline: string;
   supportingText: string;
   statusPanel: {

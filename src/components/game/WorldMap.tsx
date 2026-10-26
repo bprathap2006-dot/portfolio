@@ -261,22 +261,29 @@ export const WorldMap: React.FC = () => {
           })}
         </svg>
 
-        {/* Central Nexus Command Hub */}
+        {/* Central Nexus Command Hub featuring Real Profile Photo */}
         <div 
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-[#070c18] border-2 border-cyan-400/60 shadow-[0_0_35px_rgba(0,240,255,0.3)] flex flex-col items-center justify-center p-2 z-20 cursor-default group"
-          title="NEXUS COMMAND // PRATHAP B"
+          onClick={() => { soundEngine.playSelect(); navigateTo('/about'); }}
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-[#070c18] border-2 border-cyan-400/70 shadow-[0_0_40px_rgba(0,240,255,0.35)] flex flex-col items-center justify-center p-1.5 z-20 cursor-pointer group hover:scale-105 hover:border-cyan-300 transition-all"
+          title="NEXUS COMMAND // CLICK TO ENTER IDENTITY CORE"
         >
-          <div className="w-24 h-24 rounded-full border border-dashed border-cyan-400/40 flex flex-col items-center justify-center text-center">
-            <span className="font-display font-extrabold text-lg text-white tracking-wider">
-              PRATHAP B
-            </span>
-            <span className="text-[9px] font-mono text-cyan-400">
-              B.TECH IT 2027
-            </span>
-            <span className="text-[8px] font-mono text-emerald-400 mt-0.5 flex items-center space-x-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span>NEXUS HUB</span>
-            </span>
+          <div className="relative w-26 h-26 rounded-full overflow-hidden border border-dashed border-cyan-400/60 flex items-center justify-center bg-slate-900 w-full h-full">
+            <img 
+              src="/images/prathap-profile.jpg" 
+              alt="Prathap B"
+              className="w-full h-full object-cover object-top opacity-90 group-hover:opacity-100 transition-opacity" 
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent flex flex-col items-center justify-end pb-1.5">
+              <span className="font-display font-extrabold text-[11px] text-white tracking-wide">
+                PRATHAP B
+              </span>
+              <span className="text-[8px] font-mono text-cyan-300 font-semibold tracking-tighter">
+                IDENTITY CORE &bull; 7.90
+              </span>
+            </div>
           </div>
         </div>
 

@@ -27,16 +27,6 @@ export const GameHUD: React.FC = () => {
     toggleTerminal 
   } = useGame();
 
-  const handleResumeDownload = () => {
-    soundEngine.playScan();
-    const link = document.createElement('a');
-    link.href = '/Prathap-B-Resume.pdf';
-    link.download = 'Prathap-B-Resume.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   const isAtWorldMap = currentRoute === '/';
 
   return (
@@ -85,15 +75,15 @@ export const GameHUD: React.FC = () => {
         {/* Right: Functional HUD Action Shortcuts */}
         <div className="flex items-center space-x-2 sm:space-x-2.5">
           
-          {/* Resume PDF Shortcut */}
+          {/* Resume Viewer Shortcut */}
           <button
-            onClick={handleResumeDownload}
+            onClick={() => { soundEngine.playSelect(); navigateTo('/resume'); }}
             onMouseEnter={() => soundEngine.playHover()}
             className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-950/90 to-blue-950/90 hover:from-cyan-900 hover:to-blue-900 text-cyan-200 border border-cyan-400/60 font-mono text-xs font-semibold shadow-md transition-all focus-visible:ring-2 focus-visible:ring-cyan-400"
-            title="Download verified resume PDF"
+            title="View original verified resume (PDF)"
           >
             <FileText className="w-3.5 h-3.5 text-cyan-400" />
-            <span className="hidden sm:inline">RESUME.PDF</span>
+            <span className="hidden sm:inline">RESUME</span>
             <span className="sm:hidden">CV</span>
           </button>
 

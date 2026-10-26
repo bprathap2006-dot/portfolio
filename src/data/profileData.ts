@@ -15,6 +15,7 @@ export const profileData: ProfileInfo = {
   githubUrl: "https://github.com/bprathap2006-dot",
   githubUsername: "bprathap2006-dot",
   linkedinUrl: "https://www.linkedin.com/in/prathap-b-0b226639b",
+  profilePhoto: "/images/prathap-profile.jpg",
   headline: "Building ideas into intelligent software.",
   supportingText: "I’m an Information Technology student graduating in 2027, interested in software engineering, artificial intelligence, and cybersecurity. I enjoy turning technical ideas into practical projects and continuously improving my engineering skills.",
   statusPanel: {

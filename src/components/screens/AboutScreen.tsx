@@ -10,7 +10,9 @@ import {
   Lightbulb, 
   Users, 
   Sparkles, 
-  Terminal
+  Terminal,
+  FileText,
+  Download
 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../ui/BrandIcons';
 
@@ -77,22 +79,50 @@ export const AboutScreen: React.FC = () => {
         <div className="lg:col-span-5 space-y-6">
           <div className="p-6 rounded-3xl bg-[#080d1a] border border-cyan-500/30 shadow-[0_0_40px_rgba(0,240,255,0.08)] relative overflow-hidden">
             
-            {/* Holographic Radar Ring Box */}
+            {/* Real Photograph Hologram Cyber Frame */}
             <div className="relative w-48 h-48 sm:w-56 sm:h-56 mx-auto mb-6 flex items-center justify-center">
-              <div className="absolute inset-0 rounded-full border border-dashed border-cyan-400/40 animate-spin-slow" />
-              <div className="absolute -inset-3 rounded-full border border-violet-500/20 animate-[spin_30s_linear_infinite_reverse]" />
+              {/* Outer rotating telemetry dashed ring */}
+              <div className="absolute inset-0 rounded-full border-2 border-dashed border-cyan-400/40 animate-spin-slow" />
+              {/* Counter-rotating violet accent ring */}
+              <div className="absolute -inset-3 rounded-full border border-violet-500/25 animate-[spin_30s_linear_infinite_reverse]" />
+
+              {/* Orbiting cyber nodes */}
+              <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-cyan-400 shadow-[0_0_12px_#00f0ff] animate-pulse" />
+              <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-violet-400 shadow-[0_0_10px_#8b5cf6]" />
+
+              {/* Corner reticle brackets */}
+              <div className="absolute -top-2 -left-2 w-4 h-4 border-t-2 border-l-2 border-cyan-400" />
+              <div className="absolute -top-2 -right-2 w-4 h-4 border-t-2 border-r-2 border-cyan-400" />
+              <div className="absolute -bottom-2 -left-2 w-4 h-4 border-b-2 border-l-2 border-violet-400" />
+              <div className="absolute -bottom-2 -right-2 w-4 h-4 border-b-2 border-r-2 border-violet-400" />
               
-              <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-gradient-to-br from-cyan-950 via-slate-900 to-violet-950 border-2 border-cyan-400/70 shadow-[inset_0_0_30px_rgba(0,240,255,0.3)] flex flex-col items-center justify-center p-3 text-center">
-                <span className="font-display font-black text-4xl text-transparent bg-clip-text bg-gradient-to-tr from-cyan-300 to-violet-300">
+              {/* Circular Cyber Photo Frame */}
+              <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full overflow-hidden border-2 border-cyan-400/80 shadow-[0_0_35px_rgba(0,240,255,0.35)] relative group bg-slate-900">
+                <img 
+                  src="/images/prathap-profile.jpg" 
+                  alt="Prathap B - Aspiring Software Developer" 
+                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    const fb = e.currentTarget.parentElement?.querySelector('.photo-fallback');
+                    if (fb) (fb as HTMLElement).style.display = 'flex';
+                  }}
+                />
+                <div className="photo-fallback hidden w-full h-full flex-col items-center justify-center bg-gradient-to-br from-cyan-950 via-slate-900 to-violet-950 text-cyan-300 font-display font-black text-3xl">
                   PB
-                </span>
-                <span className="text-[10px] font-mono text-cyan-300 font-semibold mt-1">
-                  PRATHAP B
-                </span>
-                <span className="text-[9px] font-mono text-slate-400">
-                  B.TECH IT (2027)
-                </span>
+                </div>
+                {/* Holographic sweep light */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 via-transparent to-white/10 pointer-events-none" />
               </div>
+            </div>
+
+            <div className="text-center pb-2">
+              <span className="font-display font-bold text-lg text-white">
+                PRATHAP B
+              </span>
+              <p className="text-[11px] font-mono text-cyan-400 tracking-wider">
+                ASPIRING SOFTWARE DEVELOPER &bull; B.TECH IT
+              </p>
             </div>
 
             {/* Quick Metrics */}
@@ -147,11 +177,34 @@ export const AboutScreen: React.FC = () => {
               </a>
 
               <button
-                onClick={() => navigateTo('/contact')}
+                onClick={() => { soundEngine.playSelect(); navigateTo('/contact'); }}
                 className="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-cyan-950 hover:bg-cyan-900 text-cyan-300 border border-cyan-800 text-xs font-mono"
               >
                 <span>CONTACT</span>
               </button>
+            </div>
+
+            {/* Resume Access Buttons */}
+            <div className="mt-4 pt-3 border-t border-slate-800/80 grid grid-cols-2 gap-2">
+              <button
+                onClick={() => { soundEngine.playSelect(); navigateTo('/resume'); }}
+                className="flex items-center justify-center space-x-1.5 px-3 py-2.5 rounded-xl bg-cyan-950/70 hover:bg-cyan-900/90 text-cyan-300 border border-cyan-500/50 text-xs font-mono font-semibold transition-colors"
+                title="Open the verified original resume viewer"
+              >
+                <FileText className="w-3.5 h-3.5 text-cyan-400" />
+                <span>VIEW RESUME</span>
+              </button>
+
+              <a
+                href="/Prathap-B-Resume.pdf"
+                download="Prathap-B-Resume.pdf"
+                onClick={() => soundEngine.playScan()}
+                className="flex items-center justify-center space-x-1.5 px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700 text-xs font-mono transition-colors"
+                title="Download original Prathap-B-Resume.pdf directly"
+              >
+                <Download className="w-3.5 h-3.5 text-slate-400" />
+                <span>DOWNLOAD</span>
+              </a>
             </div>
 
           </div>

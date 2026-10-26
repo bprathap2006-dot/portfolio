@@ -12,7 +12,8 @@ export type NexusRoute =
   | '/education'
   | '/research'
   | '/achievements'
-  | '/contact';
+  | '/contact'
+  | '/resume';
 
 interface GameContextType {
   currentRoute: NexusRoute;
@@ -44,6 +45,7 @@ const SECTOR_COORDS: Record<string, { name: string; coord: string }> = {
   '/research': { name: 'RESEARCH TERMINAL', coord: 'SECTOR_06 // 0x61_PAPER' },
   '/achievements': { name: 'ACHIEVEMENT MODULE', coord: 'SECTOR_07 // 0x72_CREST' },
   '/contact': { name: 'CONTACT PORTAL', coord: 'SECTOR_08 // 0x83_COMM' },
+  '/resume': { name: 'RESUME ARCHIVE', coord: 'DOSSIER // 0x94_RESUME' },
 };
 
 export const GameProvider: React.FC<{ children: ReactNode }> = ({ children }) => {

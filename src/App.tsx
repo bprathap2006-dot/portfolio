@@ -14,6 +14,7 @@ import { EducationScreen } from './components/screens/EducationScreen';
 import { ResearchScreen } from './components/screens/ResearchScreen';
 import { AchievementsScreen } from './components/screens/AchievementsScreen';
 import { ContactScreen } from './components/screens/ContactScreen';
+import { ResumeScreen } from './components/screens/ResumeScreen';
 import { TerminalDrawer } from './components/game/TerminalDrawer';
 import { profileData } from './data/profileData';
 import { Shield } from 'lucide-react';
@@ -47,6 +48,8 @@ const ScreenRouter: React.FC = () => {
         return <AchievementsScreen />;
       case '/contact':
         return <ContactScreen />;
+      case '/resume':
+        return <ResumeScreen />;
       case '/':
       default:
         return <WorldMap />;
