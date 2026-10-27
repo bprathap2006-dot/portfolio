@@ -1,12 +1,12 @@
 import React from 'react';
+import { profileData } from '../../data/profileData';
 import { 
   Code2, 
   Cpu, 
   ShieldCheck, 
   Lightbulb, 
   Users, 
-  BookOpen, 
-  Target
+  BookOpen 
 } from 'lucide-react';
 
 export const AboutSection: React.FC = () => {
@@ -19,105 +19,118 @@ export const AboutSection: React.FC = () => {
     {
       icon: Cpu,
       title: "Intelligent Systems & AI",
-      desc: "Investigating deep neural classification, acoustic feature representation (Librosa), and tensor computation."
+      desc: "Investigating deep neural networks, acoustic feature representations (Librosa), and signal classification for real-world scenarios."
     },
     {
       icon: ShieldCheck,
-      title: "Network Security & Mitigation",
-      desc: "Analyzing packet telemetry via Scapy and formulating autonomous reinforcement learning mitigation for campus LANs."
+      title: "Network Security & Defense",
+      desc: "Analyzing packet telemetry using Scapy and formulating reinforcement learning mitigation policies for resource-constrained LANs."
     },
     {
       icon: Lightbulb,
-      title: "Practical Engineering",
-      desc: "Transforming theoretical computer science models and academic lab ideas into functioning, production-ready systems."
+      title: "Practical Software Engineering",
+      desc: "Transforming theoretical computer science models and academic lab concepts into production-ready, functioning systems."
     },
     {
       icon: Users,
-      title: "Continuous Learning",
-      desc: "Broadening technical capabilities across software development, AI systems engineering, and cybersecurity."
+      title: "Collaborative Engineering",
+      desc: "Learning continuously from peer developers, open-source communities, and interdisciplinary technical teams."
     }
   ];
 
   return (
-    <section id="about" className="relative py-24 bg-white/70 border-t border-slate-200/80">
+    <section id="about" className="relative py-24 border-t border-stone-200/80 dark:border-slate-800/80 bg-white/50 dark:bg-slate-900/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="max-w-3xl mb-16">
-          <div className="inline-flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-blue-600 mb-2">
-            <span>// About Me</span>
+          <div className="inline-flex items-center space-x-2 text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-2">
+            <span>About Me</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-slate-900 tracking-tight">
-            Engineering software with logic, intelligence, and security.
+          <h2 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-white tracking-tight">
+            Curious about systems, algorithms, and secure architectures.
           </h2>
-          <p className="mt-4 text-slate-600 text-base sm:text-lg leading-relaxed">
-            I am an undergraduate Information Technology student at A.K.T Memorial College of Engineering and Technology (2023–2027), passionate about applying solid computer science principles to build impactful software.
+          <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+            I am an undergraduate Information Technology student at A.K.T Memorial College of Engineering and Technology (graduating in 2027), dedicated to turning computational theory into functional, resilient software.
           </p>
         </div>
 
+        {/* Narrative & Pillars Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          {/* Main Story & Technical Philosophy (Col 7) */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="p-7 sm:p-9 rounded-2xl bg-[#faf9f6] border border-slate-200/90 shadow-soft-sm space-y-5">
-              <h3 className="text-lg font-display font-bold text-slate-900 flex items-center space-x-2">
+          {/* Left Column: Personal Narrative */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="p-7 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200/90 dark:border-slate-800 shadow-studio-sm space-y-4">
+              <h3 className="text-lg font-display font-bold text-slate-900 dark:text-white flex items-center space-x-2">
                 <BookOpen className="w-5 h-5 text-blue-600" />
-                <span>My Background & Focus</span>
+                <span>My Journey & Philosophy</span>
               </h3>
               
-              <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
-                My curiosity in technology began with a desire to understand how software works below the surface. Over the course of my B.Tech studies, I have maintained a strong academic standing (CGPA 7.90) while committing significant time to practical project engineering.
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm">
+                My interest in engineering began with an urge to understand what happens beneath high-level abstractions. Rather than treating neural classifiers or network protocols as closed black boxes, I focus on understanding their foundational data flows.
               </p>
               
-              <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
-                Rather than treating machine learning frameworks or networking protocols as opaque abstractions, I study their internal mechanics—from acoustic waveform preprocessing and Mel-spectrogram extraction for synthetic voice forensics, to low-level packet inspection and autonomous reinforcement learning mitigation for network threats.
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm">
+                From pre-processing audio frequency spectra for synthetic voice detection to inspecting raw packet flows for anomaly containment, I enjoy working where software logic directly solves critical security and intelligence challenges.
               </p>
 
-              <blockquote className="p-4 rounded-xl bg-white border-l-4 border-blue-600 text-sm font-serif italic text-slate-800 shadow-sm">
+              <blockquote className="pt-3 border-t border-stone-100 dark:border-slate-800 text-sm font-medium text-slate-800 dark:text-slate-200 italic border-l-2 border-blue-600 pl-3">
                 &ldquo;I build software at the intersection of logic, intelligence, and security.&rdquo;
               </blockquote>
             </div>
 
-            {/* Target Career Objective Card */}
-            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-soft-sm space-y-3">
-              <div className="flex items-center space-x-2 text-blue-600 font-display font-semibold text-sm">
-                <Target className="w-4 h-4 text-blue-600" />
-                <span>Career Focus & Opportunities</span>
+            {/* Quick Facts Card */}
+            <div className="p-6 rounded-2xl bg-stone-50/80 dark:bg-slate-900/60 border border-stone-200/80 dark:border-slate-800 space-y-3 text-xs">
+              <div className="font-semibold text-slate-900 dark:text-white uppercase tracking-wider text-[11px]">
+                Profile Snapshot
               </div>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Currently seeking software developer internships, graduate programs, and junior software engineering roles across software development, AI systems engineering, and cybersecurity.
-              </p>
+              <div className="flex justify-between py-1 border-b border-stone-200/60 dark:border-slate-800">
+                <span className="text-slate-500">Degree:</span>
+                <span className="font-medium text-slate-800 dark:text-slate-200">B.Tech Information Technology</span>
+              </div>
+              <div className="flex justify-between py-1 border-b border-stone-200/60 dark:border-slate-800">
+                <span className="text-slate-500">Institution:</span>
+                <span className="font-medium text-slate-800 dark:text-slate-200" title={profileData.college}>AKT MCET, Tamil Nadu</span>
+              </div>
+              <div className="flex justify-between py-1 border-b border-stone-200/60 dark:border-slate-800">
+                <span className="text-slate-500">Academic Standing:</span>
+                <span className="font-semibold text-blue-600 dark:text-blue-400">7.90 CGPA</span>
+              </div>
+              <div className="flex justify-between py-1">
+                <span className="text-slate-500">Location:</span>
+                <span className="font-medium text-slate-800 dark:text-slate-200">{profileData.location}</span>
+              </div>
             </div>
+
           </div>
 
-          {/* Core Pillars Grid (Col 5) */}
-          <div className="lg:col-span-5 space-y-3.5">
-            <div className="text-xs font-semibold uppercase tracking-wider text-slate-600 pb-1">
-              Core Engineering Pillars
+          {/* Right Column: Engineering Pillars */}
+          <div className="lg:col-span-7 space-y-4">
+            <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+              Core Technical Focus Pillars
             </div>
-            {pillars.map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <div 
-                  key={idx}
-                  className="p-4 rounded-xl bg-white border border-slate-200/90 hover:border-blue-400 hover:shadow-soft-sm transition-all duration-200 group"
-                >
-                  <div className="flex items-start space-x-3.5">
-                    <div className="p-2 rounded-lg bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors flex-shrink-0">
-                      <Icon className="w-4 h-4" />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {pillars.map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={idx}
+                    className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200/90 dark:border-slate-800 shadow-studio-sm hover:shadow-studio-md hover:border-blue-500/50 transition-all duration-200 group"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+                      <Icon className="w-5 h-5" />
                     </div>
-                    <div>
-                      <h4 className="text-sm font-display font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
-                        {item.title}
-                      </h4>
-                      <p className="text-xs text-slate-600 leading-relaxed mt-1">
-                        {item.desc}
-                      </p>
-                    </div>
+                    <h4 className="font-display font-bold text-slate-900 dark:text-white text-sm mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      {item.title}
+                    </h4>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                      {item.desc}
+                    </p>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
 
         </div>

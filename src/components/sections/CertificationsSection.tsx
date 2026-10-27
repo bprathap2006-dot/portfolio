@@ -1,106 +1,104 @@
 import React from 'react';
 import { certificationsData, technicalActivitiesData } from '../../data/certificationsData';
-import { CheckCircle2 } from 'lucide-react';
+import { Award, Presentation } from 'lucide-react';
 
 export const CertificationsSection: React.FC = () => {
   return (
-    <section id="certifications" className="relative py-24 bg-white/70 border-t border-slate-200/80">
+    <section id="certifications" className="relative py-24 border-t border-stone-200/80 dark:border-slate-800/80 bg-white/40 dark:bg-slate-900/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-14">
-          <div className="inline-flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-blue-600 mb-2">
-            <span>// Verified Credentials</span>
+        <div className="max-w-3xl mb-16">
+          <div className="inline-flex items-center space-x-2 text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-2">
+            <span>Verified Credentials</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-slate-900 tracking-tight">
-            Certifications & Technical Activities
+          <h2 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-white tracking-tight">
+            Certifications and technical activities.
           </h2>
-          <p className="mt-4 text-slate-600 text-base sm:text-lg leading-relaxed">
-            Verified external certifications, national assessments, and specialized engineering workshop participations.
+          <p className="mt-3 text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+            Standardized national examinations, domain certifications, and technical symposium participations.
           </p>
         </div>
 
-        {/* Certifications & Assessments Grid */}
-        <div className="space-y-8 max-w-5xl">
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 mb-4">
-              Professional Certifications & National Tests
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {certificationsData.map((cert) => (
-                <div
-                  key={cert.id}
-                  className="p-6 sm:p-8 rounded-3xl bg-[#faf9f6] border border-slate-200/90 shadow-soft-sm hover:shadow-soft-md hover:border-blue-300 transition-all duration-300 flex flex-col justify-between space-y-4"
-                >
-                  <div className="space-y-2.5">
-                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 inline-block">
-                      Verified Certification
-                    </span>
+        {/* 2-Column Layout: Certifications on Left, Activities on Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          
+          {/* Left Column: Certifications */}
+          <div className="space-y-4">
+            <span className="text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider block mb-2">
+              National Assessments & Certifications
+            </span>
 
+            {certificationsData.map((cert) => (
+              <div
+                key={cert.id}
+                className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200/90 dark:border-slate-800 shadow-studio-sm hover:shadow-studio-md hover:border-blue-500/40 transition-all duration-200"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-start space-x-3">
+                    <div className="p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 mt-0.5">
+                      <Award className="w-5 h-5" />
+                    </div>
                     <div>
-                      <h4 className="text-lg sm:text-xl font-display font-extrabold text-slate-900">
+                      <h3 className="font-display font-bold text-base text-slate-900 dark:text-white">
                         {cert.title}
-                      </h4>
-                      <p className="text-xs font-sans font-medium text-blue-600 mt-0.5">
+                      </h3>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 font-medium">
                         {cert.issuer}
                       </p>
                     </div>
-
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                      {cert.description}
-                    </p>
                   </div>
 
                   {cert.scoreOrDetail && (
-                    <div className="pt-3 border-t border-slate-200/80 flex items-center justify-between text-xs font-sans">
-                      <span className="text-slate-500">Verified Result / Detail:</span>
-                      <span className="font-bold text-slate-900 bg-white px-2.5 py-1 rounded-md border border-slate-200">
-                        {cert.scoreOrDetail}
-                      </span>
-                    </div>
+                    <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-900 flex-shrink-0">
+                      {cert.scoreOrDetail}
+                    </span>
                   )}
                 </div>
-              ))}
-            </div>
+
+                <p className="mt-4 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  {cert.description}
+                </p>
+              </div>
+            ))}
           </div>
 
-          {/* Technical Exhibitions & Workshops */}
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 mb-4 pt-4">
-              Expos & Specialized Engineering Workshops
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {technicalActivitiesData.map((act) => (
-                <div
-                  key={act.id}
-                  className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-soft-sm hover:shadow-soft-md hover:border-emerald-300 transition-all duration-300 flex flex-col justify-between space-y-4"
-                >
-                  <div className="space-y-2.5">
-                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 inline-block">
-                      {act.type}
-                    </span>
+          {/* Right Column: Technical Activities */}
+          <div className="space-y-4">
+            <span className="text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider block mb-2">
+              Workshops & Technical Exhibitions
+            </span>
 
+            {technicalActivitiesData.map((act) => (
+              <div
+                key={act.id}
+                className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200/90 dark:border-slate-800 shadow-studio-sm hover:shadow-studio-md hover:border-blue-500/40 transition-all duration-200"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-start space-x-3">
+                    <div className="p-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 mt-0.5">
+                      <Presentation className="w-5 h-5" />
+                    </div>
                     <div>
-                      <h4 className="text-lg sm:text-xl font-display font-extrabold text-slate-900">
+                      <h3 className="font-display font-bold text-base text-slate-900 dark:text-white">
                         {act.title}
-                      </h4>
-                      <p className="text-xs font-sans font-medium text-emerald-700 mt-0.5">
+                      </h3>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 font-medium">
                         {act.institution}
                       </p>
                     </div>
-
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                      {act.description}
-                    </p>
                   </div>
 
-                  <div className="pt-3 border-t border-slate-100 flex items-center space-x-1.5 text-xs text-slate-500 font-sans">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Verified Academic Participation</span>
-                  </div>
+                  <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-900 flex-shrink-0">
+                    {act.type}
+                  </span>
                 </div>
-              ))}
-            </div>
+
+                <p className="mt-4 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  {act.description}
+                </p>
+              </div>
+            ))}
           </div>
 
         </div>

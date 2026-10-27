@@ -1,247 +1,135 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { profileData } from '../../data/profileData';
-import { 
-  ArrowRight, 
-  FileText, 
-  Mail, 
-  MapPin, 
-  GraduationCap, 
-  Award, 
-  Calendar,
-  CheckCircle2
-} from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from '../ui/BrandIcons';
+import { CapsuleButton } from '../ui/CapsuleButton';
+import { DocumentButton } from '../ui/DocumentButton';
+import { SignalButton } from '../ui/SignalButton';
+import { TerminalButton } from '../ui/TerminalButton';
+import { NetworkButton } from '../ui/NetworkButton';
+import { MapPin, GraduationCap, Award, Calendar } from 'lucide-react';
 
 export const HeroSection: React.FC = () => {
-  const [downloading, setDownloading] = useState(false);
-  const [downloadSuccess, setDownloadSuccess] = useState(false);
-  const [isExploreHovered, setIsExploreHovered] = useState(false);
-
-  const handleScrollTo = (id: string, e: React.MouseEvent) => {
-    e.preventDefault();
-    const elem = document.getElementById(id);
-    if (elem) {
-      elem.scrollIntoView({ behavior: 'smooth' });
-      history.pushState(null, '', `#${id}`);
-    }
-  };
-
-  const handleDownloadResume = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setDownloading(true);
-
-    const link = document.createElement('a');
-    link.href = '/Prathap-B-Resume.pdf';
-    link.download = 'Prathap-B-Resume.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    setTimeout(() => {
-      setDownloading(false);
-      setDownloadSuccess(true);
-      setTimeout(() => setDownloadSuccess(false), 3000);
-    }, 700);
-  };
-
   return (
-    <section 
+    <section
       id="home"
-      className="relative min-h-[90vh] pt-32 pb-20 md:pt-40 md:pb-28 flex items-center justify-center overflow-hidden"
+      className="relative min-h-[90vh] pt-28 sm:pt-36 pb-20 flex items-center justify-center overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
           {/* Left Column: Editorial Headline, Bio, Actions (Col 7) */}
-          <div className="lg:col-span-7 space-y-7 text-left animate-fade-up">
+          <div className="lg:col-span-7 space-y-6 text-left">
             
-            {/* Status Pill */}
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-blue-700 text-xs font-medium tracking-wide">
+            {/* Title Badge / Focus Area */}
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/50 border border-blue-200/80 dark:border-blue-900/60 text-blue-700 dark:text-blue-300 text-xs font-semibold tracking-wide">
               <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
-              <span>Available for 2026 / 2027 Internship & Engineering Roles</span>
+              <span>{profileData.professionalTitle} &bull; B.Tech IT</span>
             </div>
 
-            {/* Main Editorial Presentation */}
-            <div className="space-y-3">
-              <div className="text-sm font-sans font-semibold text-slate-600 tracking-wider uppercase">
-                {profileData.professionalTitle}
-              </div>
-              
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-display font-extrabold text-slate-900 tracking-tight leading-[1.08]">
-                PRATHAP <span className="text-blue-600">B</span>
+            {/* Name & Headline */}
+            <div className="space-y-2">
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.08]">
+                PRATHAP <span className="text-blue-600 dark:text-blue-400">B</span>
               </h1>
-
-              {/* Exact Tagline Quote */}
-              <p className="text-xl sm:text-2xl font-serif text-slate-700 italic pt-1">
-                &ldquo;Building ideas into intelligent software.&rdquo;
+              
+              <p className="text-lg sm:text-xl font-display font-semibold text-slate-700 dark:text-slate-200">
+                &ldquo;{profileData.tagline}&rdquo;
               </p>
             </div>
 
-            {/* Core Summary Paragraph */}
-            <p className="text-base sm:text-lg text-slate-600 font-sans leading-relaxed max-w-2xl">
-              I am a B.Tech Information Technology student interested in software development, artificial intelligence, and cybersecurity. I focus on turning complex problem spaces into robust, maintainable, and verifiable software implementations.
+            {/* Concise Editorial Bio */}
+            <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 font-sans leading-relaxed max-w-xl">
+              I am a B.Tech Information Technology student at A.K.T Memorial College of Engineering and Technology, interested in software development, artificial intelligence, and cybersecurity.
             </p>
 
-            {/* Credential Details Row */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 py-3 border-y border-slate-200/90 text-xs font-sans">
-              <div className="space-y-0.5">
-                <span className="text-slate-600 uppercase text-[10px] tracking-wider block font-medium">Degree</span>
-                <span className="font-semibold text-slate-900 flex items-center space-x-1">
-                  <GraduationCap className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" />
-                  <span className="truncate">B.Tech IT</span>
-                </span>
-              </div>
-              <div className="space-y-0.5">
-                <span className="text-slate-600 uppercase text-[10px] tracking-wider block font-medium">Graduation</span>
-                <span className="font-semibold text-slate-900 flex items-center space-x-1">
-                  <Calendar className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" />
-                  <span>2027</span>
-                </span>
-              </div>
-              <div className="space-y-0.5">
-                <span className="text-slate-600 uppercase text-[10px] tracking-wider block font-medium">Academic CGPA</span>
-                <span className="font-bold text-slate-900 flex items-center space-x-1">
-                  <Award className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" />
-                  <span>7.90 / 10.0</span>
-                </span>
-              </div>
-              <div className="space-y-0.5">
-                <span className="text-slate-600 uppercase text-[10px] tracking-wider block font-medium">Location</span>
-                <span className="font-semibold text-slate-900 flex items-center space-x-1">
-                  <MapPin className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" />
-                  <span className="truncate">Kallakurichi, TN</span>
-                </span>
-              </div>
-            </div>
-
-            {/* Three Working Action Buttons */}
+            {/* 3 Prominent Working Actions */}
             <div className="pt-2 flex flex-wrap gap-3.5 items-center">
-              
-              {/* Button 1: Explore My Work */}
-              <button
-                onClick={(e) => handleScrollTo('projects', e)}
-                onMouseEnter={() => setIsExploreHovered(true)}
-                onMouseLeave={() => setIsExploreHovered(false)}
-                className="relative group px-6 py-3.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold tracking-wide transition-all duration-200 shadow-soft-sm hover:shadow-soft-hover hover:-translate-y-0.5 flex items-center space-x-2.5 overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
-              >
-                <span>Explore My Work</span>
-                <ArrowRight 
-                  className={`w-4 h-4 transition-transform duration-300 ${
-                    isExploreHovered ? 'translate-x-1' : ''
-                  }`} 
-                />
-                {/* Drawn accent line beneath button */}
-                <span 
-                  className={`absolute bottom-0 left-0 right-0 h-[2.5px] bg-white/40 transition-transform duration-300 ${
-                    isExploreHovered ? 'scale-x-100' : 'scale-x-0'
-                  }`} 
-                />
-              </button>
-
-              {/* Button 2: Download Resume */}
-              <button
-                onClick={handleDownloadResume}
-                disabled={downloading}
-                className="relative px-5 py-3.5 rounded-full bg-white hover:bg-slate-50 text-slate-800 hover:text-slate-900 text-sm font-semibold tracking-wide border border-slate-300/80 hover:border-slate-400 shadow-soft-sm hover:-translate-y-0.5 transition-all duration-200 flex items-center space-x-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
-                title="Download original verified resume PDF"
-              >
-                {downloadSuccess ? (
-                  <>
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                    <span className="text-emerald-700">Resume Downloaded</span>
-                  </>
-                ) : (
-                  <>
-                    <FileText className={`w-4 h-4 text-blue-600 ${downloading ? 'animate-bounce' : ''}`} />
-                    <span>{downloading ? 'Downloading...' : 'Download Resume'}</span>
-                  </>
-                )}
-              </button>
-
-              {/* Button 3: Let's Connect */}
-              <button
-                onClick={(e) => handleScrollTo('contact', e)}
-                className="px-5 py-3.5 rounded-full bg-transparent hover:bg-slate-100/70 text-slate-700 hover:text-slate-900 text-sm font-medium tracking-wide transition-colors flex items-center space-x-2 border border-transparent hover:border-slate-300/60"
-              >
-                <Mail className="w-4 h-4 text-slate-600" />
-                <span>Let&apos;s Connect</span>
-              </button>
-
+              <CapsuleButton href="#projects">
+                Explore My Work
+              </CapsuleButton>
+              <DocumentButton resumeUrl="/Prathap-B-Resume.pdf" />
+              <SignalButton href="#contact">
+                Let&apos;s Connect
+              </SignalButton>
             </div>
 
             {/* Direct Social Links */}
-            <div className="pt-2 flex items-center space-x-4 text-xs font-sans text-slate-600">
-              <span>Connect on:</span>
-              <a
-                href="https://github.com/bprathap2006-dot"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center space-x-1.5 text-slate-700 hover:text-slate-900 font-medium hover:underline"
-              >
-                <GithubIcon className="w-3.5 h-3.5" />
-                <span>GitHub</span>
-              </a>
-              <span>&bull;</span>
-              <a
-                href="https://www.linkedin.com/in/prathap-b-0b226639b"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center space-x-1.5 text-blue-600 hover:text-blue-700 font-medium hover:underline"
-              >
-                <LinkedinIcon className="w-3.5 h-3.5" />
-                <span>LinkedIn</span>
-              </a>
+            <div className="pt-1 flex flex-wrap items-center gap-3">
+              <TerminalButton url={profileData.githubUrl} />
+              <NetworkButton url={profileData.linkedinUrl} />
+            </div>
+
+            {/* Key Verified Details Badge Bar */}
+            <div className="pt-4 border-t border-stone-200/80 dark:border-slate-800 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs text-slate-600 dark:text-slate-400">
+              <div className="flex items-center space-x-1.5">
+                <GraduationCap className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                <span className="truncate">B.Tech IT</span>
+              </div>
+              <div className="flex items-center space-x-1.5">
+                <Calendar className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                <span>Grad: 2027</span>
+              </div>
+              <div className="flex items-center space-x-1.5">
+                <Award className="w-4 h-4 text-amber-600 flex-shrink-0" />
+                <span className="font-semibold text-slate-900 dark:text-slate-100">CGPA: 7.90</span>
+              </div>
+              <div className="flex items-center space-x-1.5">
+                <MapPin className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                <span className="truncate" title="Kallakurichi, Tamil Nadu, India">Kallakurichi, TN</span>
+              </div>
             </div>
 
           </div>
 
-          {/* Right Column: Refined Portrait Frame (Col 5) */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            
-            <div className="relative group w-full max-w-[340px] sm:max-w-[380px]">
+          {/* Right Column: Refined Portrait in Elegant Frame (Col 5) */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <div className="relative group">
               
-              {/* Soft ambient lighting accent behind portrait */}
-              <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-blue-200/40 via-amber-100/30 to-transparent blur-2xl group-hover:blur-3xl transition-all duration-500 pointer-events-none" />
+              {/* Subtle ambient back-glow */}
+              <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-blue-500/10 via-slate-200/20 to-transparent dark:from-blue-600/15 dark:via-slate-800/20 blur-xl pointer-events-none group-hover:scale-105 transition-transform duration-500" />
 
-              {/* Editorial Portrait Container */}
-              <div className="relative rounded-2xl bg-white p-3 border border-slate-200/90 shadow-soft-xl group-hover:shadow-soft-hover transition-all duration-300">
+              {/* Refined Portrait Card */}
+              <div className="relative w-72 sm:w-80 rounded-2xl bg-white dark:bg-slate-900 p-3 border border-stone-200/90 dark:border-slate-800 shadow-studio-lg group-hover:shadow-studio-xl transition-all duration-300">
                 
                 {/* Image Frame */}
-                <div className="relative aspect-[4/5] w-full rounded-xl overflow-hidden bg-slate-100 shadow-inner">
+                <div className="w-full aspect-[4/5] rounded-xl overflow-hidden bg-stone-100 dark:bg-slate-800 relative">
                   <img
                     src="/images/prathap-profile.jpg"
                     alt="Prathap B - Aspiring Software Developer"
-                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]"
-                    loading="eager"
+                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                    onError={(e) => {
+                      // Fallback in case of image load delay
+                      e.currentTarget.style.display = 'none';
+                      const fb = e.currentTarget.parentElement?.querySelector('.photo-fallback');
+                      if (fb) (fb as HTMLElement).style.display = 'flex';
+                    }}
                   />
-                  {/* Subtle vignette/sheen */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent pointer-events-none" />
+                  <div className="photo-fallback hidden w-full h-full flex-col items-center justify-center bg-slate-900 text-white font-display font-bold text-3xl">
+                    PB
+                  </div>
+                  
+                  {/* Subtle glass reflection overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-black/20 via-transparent to-white/10 pointer-events-none" />
                 </div>
 
-                {/* Editorial Caption Plate */}
-                <div className="pt-3 pb-1 px-1 flex items-center justify-between text-xs">
+                {/* Portrait Caption */}
+                <div className="mt-3.5 px-1 flex items-center justify-between text-xs">
                   <div>
-                    <h2 className="font-display font-bold text-slate-900 text-sm">
-                      PRATHAP B
-                    </h2>
-                    <p className="text-slate-600 text-[11px] font-sans">
-                      A.K.T Memorial College of Engineering
+                    <h3 className="font-display font-bold text-slate-900 dark:text-white">
+                      Prathap B
+                    </h3>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                      A.K.T Memorial College of Eng. & Tech
                     </p>
                   </div>
-                  <div className="flex flex-col items-end">
-                    <span className="font-semibold text-blue-600 text-[11px]">
-                      B.Tech IT
-                    </span>
-                    <span className="text-slate-600 text-[10px]">
-                      Class of 2027
-                    </span>
+                  <div className="flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-semibold text-[11px] border border-emerald-200 dark:border-emerald-800">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>Open to Roles</span>
                   </div>
                 </div>
 
               </div>
 
             </div>
-
           </div>
 
         </div>

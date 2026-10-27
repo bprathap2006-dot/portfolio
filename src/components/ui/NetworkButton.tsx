@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ExternalLink } from 'lucide-react';
+import { LinkedinIcon } from './BrandIcons';
 
 interface NetworkButtonProps {
   url?: string;
@@ -19,25 +19,16 @@ export const NetworkButton: React.FC<NetworkButtonProps> = ({
       rel="noopener noreferrer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`relative inline-flex items-center space-x-3 px-5 py-3 rounded-lg font-mono text-sm text-slate-200 bg-[#070b14] hover:bg-[#0c1220] border border-slate-700/80 hover:border-blue-500/60 shadow-[0_4px_12px_rgba(0,0,0,0.5)] group transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 ${className}`}
-      aria-label="Connect with Prathap B on LinkedIn"
+      className={`inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-700 hover:text-blue-600 bg-white hover:bg-slate-50 border border-stone-200/90 dark:bg-slate-900 dark:text-slate-300 dark:border-slate-800 dark:hover:bg-slate-800 shadow-studio-sm hover:shadow-studio-md transition-all duration-200 group ${className}`}
+      aria-label="LinkedIn Profile (opens in new tab)"
+      title="View LinkedIn Profile: https://www.linkedin.com/in/prathap-b-0b226639b"
     >
-      {/* Connected nodes SVG animation */}
-      <span className="relative flex items-center justify-center w-5 h-5">
-        <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-current text-blue-400">
-          <circle cx="6" cy="6" r="3" strokeWidth="1.8" className={isHovered ? 'animate-ping' : ''} />
-          <circle cx="18" cy="18" r="3" strokeWidth="1.8" />
-          <circle cx="18" cy="6" r="2.5" strokeWidth="1.5" />
-          <line x1="8.5" y1="8.5" x2="15.5" y2="15.5" strokeWidth="1.8" strokeDasharray={isHovered ? "2 2" : "none"} />
-          <line x1="8.5" y1="6" x2="15.5" y2="6" strokeWidth="1.5" />
-        </svg>
-      </span>
-
-      <span className="tracking-wide text-slate-200 group-hover:text-blue-300 transition-colors">
-        Connect on LinkedIn
-      </span>
-
-      <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-300 transition-colors" />
+      <LinkedinIcon 
+        className={`w-4 h-4 text-slate-700 dark:text-slate-300 group-hover:text-blue-600 transition-transform duration-200 ${
+          isHovered ? '-translate-y-0.5 scale-105' : ''
+        }`} 
+      />
+      <span>LinkedIn</span>
     </a>
   );
 };

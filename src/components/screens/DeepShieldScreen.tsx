@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
+import { useGame } from '../../context/GameContext';
 import { projectsData } from '../../data/projectsData';
-import { profileData } from '../../data/profileData';
 import { 
   ArrowLeft, 
-  Radio, 
   Copy, 
-  Check
+  Check, 
+  GitBranch 
 } from 'lucide-react';
-import { GithubIcon } from '../ui/BrandIcons';
 
-interface DeepShieldScreenProps {
-  onBack?: () => void;
-}
-
-export const DeepShieldScreen: React.FC<DeepShieldScreenProps> = ({ onBack }) => {
+export const DeepShieldScreen: React.FC = () => {
+  const { navigateTo } = useGame();
   const [copied, setCopied] = useState(false);
-  const [activeStep, setActiveStep] = useState(2);
   const project = projectsData[0];
 
   const handleCopyTitle = () => {
@@ -57,195 +52,145 @@ export const DeepShieldScreen: React.FC<DeepShieldScreenProps> = ({ onBack }) =>
     },
   ];
 
-  const handleBack = () => {
-    if (onBack) {
-      onBack();
-    } else {
-      window.location.href = '/#projects';
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-[#faf9f6] text-slate-900 pt-24 pb-16 px-4 sm:px-6 lg:px-8 font-sans animate-fade-in">
-      <div className="max-w-6xl mx-auto space-y-8">
+    <div className="relative min-h-[92vh] pt-24 pb-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in font-sans">
+      
+      {/* Header with Return Action */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-stone-200 dark:border-slate-800 mb-8">
+        <div>
+          <div className="flex items-center space-x-2 text-xs font-semibold text-blue-600 dark:text-blue-400 mb-1">
+            <span>Project Deep Dive &bull; AI / Audio Forensics</span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-white tracking-tight">
+            {project.name}
+          </h1>
+        </div>
+
+        <button
+          onClick={() => navigateTo('/')}
+          className="flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-stone-50 dark:hover:bg-slate-700 border border-stone-200 dark:border-slate-700 text-xs font-semibold shadow-sm transition-all self-start sm:self-auto"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>Return to Portfolio</span>
+        </button>
+      </div>
+
+      {/* Main Content Card */}
+      <div className="p-7 sm:p-10 rounded-3xl bg-white dark:bg-slate-900 border border-stone-200/90 dark:border-slate-800 shadow-studio-lg space-y-8">
         
-        {/* Navigation Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
-          <div>
-            <div className="inline-flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-blue-600 mb-1">
-              <span>// Project Architecture Dossier</span>
-            </div>
-            <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-slate-900 tracking-tight">
-              DeepShield: <span className="text-blue-600">AI Fake Voice Detection</span>
-            </h1>
-            <p className="text-xs sm:text-sm text-slate-600 font-sans mt-0.5">
-              Deep learning acoustic forensics identifying synthetic vocal cloning artifacts.
-            </p>
-          </div>
-
-          <div className="flex items-center space-x-3">
-            <button
-              onClick={handleBack}
-              className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-full bg-white hover:bg-slate-100 text-slate-700 text-xs font-semibold border border-slate-200 shadow-soft-sm transition-all hover:-translate-y-0.5"
-            >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Back to Projects</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Hero Project Card */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          {/* Left Column: Project Details (Col 7) */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="p-7 sm:p-9 rounded-3xl bg-white border border-slate-200/90 shadow-soft-sm space-y-4">
-              
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
-                  {project.category}
-                </span>
-                <span className="px-3 py-1 rounded-full text-xs font-medium bg-amber-50 text-amber-800 border border-amber-200">
-                  Status: {project.status}
-                </span>
-              </div>
-
-              <div>
-                <h2 className="text-xl font-display font-extrabold text-slate-900">
-                  {project.fullTitle}
-                </h2>
-                <p className="text-xs text-slate-600 mt-1 font-medium">
-                  B.Tech IT Final-Year Engineering Project &bull; In Progress
-                </p>
-              </div>
-
-              <p className="text-sm text-slate-600 leading-relaxed font-sans">
-                {project.fullDescription}
-              </p>
-
-              {/* Technologies Grid */}
-              <div className="pt-2 border-t border-slate-100 space-y-2">
-                <span className="text-xs font-semibold text-slate-700 block uppercase tracking-wider">
-                  Core Technologies:
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="px-3 py-1 rounded-lg bg-slate-100 text-slate-800 text-xs font-medium"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="pt-3 border-t border-slate-100 flex flex-wrap gap-3 items-center">
-                <button
-                  onClick={handleCopyTitle}
-                  className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-medium transition-colors"
-                >
-                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-slate-600" />}
-                  <span>{copied ? 'Title Copied' : 'Copy Project Title'}</span>
-                </button>
-
-                <a
-                  href={project.repoUrl || profileData.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition-colors"
-                >
-                  <GithubIcon className="w-3.5 h-3.5" />
-                  <span>GitHub Profile</span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Audio Waveform Simulation (Col 5) */}
-          <div className="lg:col-span-5 space-y-4">
-            <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-soft-sm space-y-4">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-100 text-xs font-medium text-slate-700">
-                <div className="flex items-center space-x-2">
-                  <Radio className="w-4 h-4 text-blue-600 animate-pulse" />
-                  <span>Spectral Waveform Telemetry</span>
-                </div>
-                <span className="text-[11px] font-mono text-blue-600">Librosa Audio Engine</span>
-              </div>
-
-              {/* Waveform Bar Graphic */}
-              <div className="h-32 flex items-center justify-between gap-1 p-2 bg-slate-50 rounded-2xl border border-slate-100">
-                {[30, 65, 45, 90, 60, 95, 40, 75, 100, 65, 30, 85, 70, 45, 90, 60, 40, 80, 25].map((h, i) => (
-                  <div
-                    key={i}
-                    className="w-full bg-blue-600 rounded-full transition-all duration-300"
-                    style={{ height: `${h}%` }}
-                  />
-                ))}
-              </div>
-
-              <div className="p-3.5 rounded-xl bg-blue-50 text-xs text-blue-900 leading-relaxed space-y-1">
-                <span className="font-bold block text-blue-950">Acoustic Artifact Isolation:</span>
-                <p className="text-[11px]">
-                  Synthesized speech often exhibits unnatural Phase coherence, high-frequency harmonic smearing, and micro-prosody irregularities detectable in MFCC feature tensors.
-                </p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        {/* 5-Step Pipeline Architecture Section */}
-        <div className="p-8 sm:p-10 rounded-3xl bg-white border border-slate-200/90 shadow-soft-sm space-y-6">
-          <div>
-            <span className="text-xs font-semibold uppercase tracking-wider text-blue-600 block mb-1">
-              End-to-End Forensics Pipeline
+        {/* Full Title & Status */}
+        <div className="space-y-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200/80 dark:border-blue-900/60">
+              AI-Based Acoustic Forensics
             </span>
-            <h3 className="text-2xl font-display font-extrabold text-slate-900">
-              Acoustic Feature Extraction & Deep Classification Flow
-            </h3>
+            <span className="px-3 py-1 rounded-full text-xs font-medium bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-900">
+              {project.status}
+            </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-            {pipelineSteps.map((step, idx) => (
-              <button
+          <h2 className="text-2xl sm:text-3xl font-display font-bold text-slate-900 dark:text-white">
+            {project.fullTitle}
+          </h2>
+
+          <p className="text-base text-slate-600 dark:text-slate-300 leading-relaxed font-sans">
+            {project.fullDescription}
+          </p>
+        </div>
+
+        {/* 5-Step Pipeline Walkthrough */}
+        <div className="space-y-4 pt-4 border-t border-stone-100 dark:border-slate-800">
+          <span className="text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider block">
+            End-to-End Processing Pipeline
+          </span>
+
+          <div className="space-y-3">
+            {pipelineSteps.map((step) => (
+              <div 
                 key={step.step}
-                onClick={() => setActiveStep(idx)}
-                className={`p-4 rounded-2xl border text-left transition-all ${
-                  activeStep === idx
-                    ? 'bg-blue-50/70 border-blue-400 shadow-sm'
-                    : 'bg-[#faf9f6] border-slate-200 hover:border-slate-300'
-                }`}
+                className="p-4 rounded-2xl bg-stone-50 dark:bg-slate-800/60 border border-stone-200/60 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
               >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-bold text-blue-600 font-mono">
-                    STEP {step.step}
+                <div className="flex items-start space-x-3">
+                  <span className="w-7 h-7 rounded-lg bg-blue-600 text-white font-mono font-bold text-xs flex items-center justify-center flex-shrink-0">
+                    {step.step}
                   </span>
-                  {activeStep === idx && (
-                    <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
-                  )}
+                  <div>
+                    <h3 className="font-display font-bold text-sm text-slate-900 dark:text-white">
+                      {step.title}
+                    </h3>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
+                      {step.desc}
+                    </p>
+                  </div>
                 </div>
-                <h4 className="font-display font-bold text-xs text-slate-900 line-clamp-2">
-                  {step.title}
-                </h4>
-                <span className="text-[10px] text-slate-600 font-mono mt-2 block">
+
+                <span className="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-stone-200 dark:border-slate-700 self-start sm:self-center">
                   {step.tool}
                 </span>
-              </button>
+              </div>
             ))}
           </div>
+        </div>
 
-          {/* Active Step Deep Dive */}
-          <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-700 leading-relaxed">
-            <strong className="text-slate-900 font-display font-bold block mb-1">
-              {pipelineSteps[activeStep].title} Details:
-            </strong>
-            <p>{pipelineSteps[activeStep].desc}</p>
+        {/* Technical Highlights */}
+        <div className="space-y-3 pt-4 border-t border-stone-100 dark:border-slate-800">
+          <span className="text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider block">
+            Architectural Highlights
+          </span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+            {project.architectureHighlights.map((highlight, idx) => (
+              <div key={idx} className="p-3.5 rounded-xl bg-stone-50 dark:bg-slate-850 border border-stone-200/60 dark:border-slate-800 flex items-start space-x-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 flex-shrink-0" />
+                <span>{highlight}</span>
+              </div>
+            ))}
           </div>
+        </div>
+
+        {/* Technologies Applied */}
+        <div className="pt-2">
+          <span className="text-xs font-semibold text-slate-900 dark:text-white uppercase tracking-wider block mb-2">
+            Core Technology Stack
+          </span>
+          <div className="flex flex-wrap gap-2">
+            {project.technologies.map((tech) => (
+              <span
+                key={tech}
+                className="px-3 py-1 rounded-lg text-xs font-mono font-medium bg-stone-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-stone-200/80 dark:border-slate-700"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Repository Notice & Copy Action */}
+        <div className="pt-4 border-t border-stone-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center space-x-2 text-xs text-slate-500">
+            <GitBranch className="w-4 h-4 text-blue-600" />
+            <span>Repository in active development. Source code will be published upon academic review.</span>
+          </div>
+
+          <button
+            onClick={handleCopyTitle}
+            className="inline-flex items-center space-x-2 px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 bg-stone-100 hover:bg-stone-200 dark:bg-slate-800 dark:hover:bg-slate-700 transition-colors"
+          >
+            {copied ? (
+              <>
+                <Check className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Title Copied!</span>
+              </>
+            ) : (
+              <>
+                <Copy className="w-3.5 h-3.5 text-slate-400" />
+                <span>Copy Project Title</span>
+              </>
+            )}
+          </button>
         </div>
 
       </div>
+
     </div>
   );
 };

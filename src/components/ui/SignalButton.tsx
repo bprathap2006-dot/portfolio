@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { Send } from 'lucide-react';
+import { Mail, ArrowUpRight } from 'lucide-react';
 
 interface SignalButtonProps {
   href?: string;
-  onClick?: () => void;
   className?: string;
+  children?: React.ReactNode;
 }
 
 export const SignalButton: React.FC<SignalButtonProps> = ({
   href = '#contact',
-  onClick,
   className = '',
+  children,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -23,7 +23,6 @@ export const SignalButton: React.FC<SignalButtonProps> = ({
         history.pushState(null, '', href);
       }
     }
-    if (onClick) onClick();
   };
 
   return (
@@ -32,24 +31,18 @@ export const SignalButton: React.FC<SignalButtonProps> = ({
       onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`relative inline-flex items-center space-x-3 px-6 py-3.5 rounded-lg font-mono text-sm tracking-wide font-medium text-amber-200 bg-amber-950/30 hover:bg-amber-950/50 border border-amber-500/40 hover:border-amber-400 shadow-[0_4px_16px_rgba(245,158,11,0.15)] group transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 overflow-hidden ${className}`}
-      aria-label="Initiate Contact with Prathap B"
+      className={`relative inline-flex items-center justify-center px-6 py-3.5 rounded-xl font-sans text-sm font-semibold text-slate-700 hover:text-blue-600 bg-stone-100 hover:bg-stone-200/80 dark:bg-slate-800/80 dark:text-slate-200 dark:hover:bg-slate-800 active:scale-[0.98] transition-all duration-200 group ${className}`}
+      aria-label="Let's Connect"
     >
-      {/* Animated signal path */}
-      <span className="relative flex h-3 w-3">
-        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
-        <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500" />
+      <span className="relative z-10 flex items-center space-x-2">
+        <Mail className="w-4 h-4 text-slate-500 group-hover:text-blue-600 transition-colors" />
+        <span>{children || "Let's Connect"}</span>
+        <ArrowUpRight 
+          className={`w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-transform duration-200 ${
+            isHovered ? 'translate-x-0.5 -translate-y-0.5' : ''
+          }`} 
+        />
       </span>
-
-      <span className="tracking-wide group-hover:text-amber-100 transition-colors">
-        Initiate Contact
-      </span>
-
-      <Send 
-        className={`w-3.5 h-3.5 text-amber-400 transition-transform duration-300 ${
-          isHovered ? 'translate-x-1 -translate-y-0.5' : ''
-        }`} 
-      />
     </a>
   );
 };

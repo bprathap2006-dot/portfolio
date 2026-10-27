@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ExternalLink } from 'lucide-react';
+import { GithubIcon } from './BrandIcons';
 
 interface TerminalButtonProps {
   url?: string;
@@ -19,23 +19,16 @@ export const TerminalButton: React.FC<TerminalButtonProps> = ({
       rel="noopener noreferrer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`relative inline-flex items-center space-x-2.5 px-5 py-3 rounded-lg font-mono text-sm text-slate-200 bg-[#070b14] hover:bg-[#0c1220] border border-slate-700/80 hover:border-violet-500/60 shadow-[0_4px_12px_rgba(0,0,0,0.5)] group transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 ${className}`}
-      aria-label="Explore GitHub profile of Prathap B"
+      className={`inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-700 hover:text-slate-950 bg-white hover:bg-slate-50 border border-stone-200/90 dark:bg-slate-900 dark:text-slate-300 dark:border-slate-800 dark:hover:bg-slate-800 shadow-studio-sm hover:shadow-studio-md transition-all duration-200 group ${className}`}
+      aria-label="GitHub Profile (opens in new tab)"
+      title="View GitHub Profile: https://github.com/bprathap2006-dot"
     >
-      {/* Terminal prompt symbol */}
-      <span className="text-violet-400 font-bold">&gt;_</span>
-      
-      {/* Label with moving cursor */}
-      <span className="flex items-center">
-        <span className="tracking-wide">git checkout /bprathap</span>
-        <span 
-          className={`inline-block w-2 h-3.5 ml-1 bg-violet-400 transition-opacity ${
-            isHovered ? 'animate-pulse opacity-100' : 'opacity-60'
-          }`}
-        />
-      </span>
-
-      <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-violet-300 transition-colors ml-1" />
+      <GithubIcon 
+        className={`w-4 h-4 text-slate-700 dark:text-slate-300 group-hover:text-black dark:group-hover:text-white transition-transform duration-200 ${
+          isHovered ? '-translate-y-0.5 rotate-[-4deg]' : ''
+        }`} 
+      />
+      <span>GitHub</span>
     </a>
   );
 };
