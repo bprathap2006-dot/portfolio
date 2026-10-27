@@ -1,153 +1,95 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { GameProvider, useGame } from './context/GameContext';
-import { StudioCanvas } from './components/layout/StudioCanvas';
-import { Navigation } from './components/layout/Navigation';
-import { Footer } from './components/layout/Footer';
-import { HeroSection } from './components/sections/HeroSection';
-import { AboutSection } from './components/sections/AboutSection';
-import { SkillsSection } from './components/sections/SkillsSection';
-import { ProjectsSection } from './components/sections/ProjectsSection';
-import { ExperienceSection } from './components/sections/ExperienceSection';
-import { EducationSection } from './components/sections/EducationSection';
-import { ResearchSection } from './components/sections/ResearchSection';
-import { CertificationsSection } from './components/sections/CertificationsSection';
-import { ContactSection } from './components/sections/ContactSection';
-import { ResumeScreen } from './components/screens/ResumeScreen';
+import { NexusCanvas } from './components/layout/NexusCanvas';
+import { GameHUD } from './components/game/GameHUD';
+import { GameFooter } from './components/game/GameFooter';
+import { StartScreen } from './components/game/StartScreen';
+import { WorldMap } from './components/game/WorldMap';
+import { TerminalDrawer } from './components/game/TerminalDrawer';
+
+// Dedicated Sector Screens
+import { AboutScreen } from './components/screens/AboutScreen';
+import { SkillsScreen } from './components/screens/SkillsScreen';
+import { ProjectsScreen } from './components/screens/ProjectsScreen';
 import { DeepShieldScreen } from './components/screens/DeepShieldScreen';
 import { ZeroDayScreen } from './components/screens/ZeroDayScreen';
+import { ExperienceScreen } from './components/screens/ExperienceScreen';
+import { EducationScreen } from './components/screens/EducationScreen';
+import { ResearchScreen } from './components/screens/ResearchScreen';
+import { AchievementsScreen } from './components/screens/AchievementsScreen';
+import { ContactScreen } from './components/screens/ContactScreen';
+import { ResumeScreen } from './components/screens/ResumeScreen';
 
-const MainEditorialPortfolio: React.FC = () => {
-  const { isDarkMode, toggleTheme, activeSection, setActiveSection } = useGame();
+const PortfolioGameRouter: React.FC = () => {
+  const { currentRoute, showStartScreen, isDarkMode } = useGame();
 
-  useEffect(() => {
-    const sectionIds = [
-      'home',
-      'about',
-      'skills',
-      'projects',
-      'experience',
-      'education',
-      'research',
-      'certifications',
-      'contact',
-    ];
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      {
-        rootMargin: '-20% 0px -60% 0px',
-        threshold: 0.1,
-      }
+  // If StartScreen is active, present the Cyberpunk 2077-styled title menu
+  if (showStartScreen) {
+    return (
+      <div className="relative min-h-screen bg-[#04060c] text-slate-100 overflow-x-hidden selection:bg-cyan-500/20 selection:text-cyan-300">
+        <StartScreen />
+        <TerminalDrawer />
+      </div>
     );
+  }
 
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, [setActiveSection]);
+  // Active sector screen renderer
+  const renderCurrentSector = () => {
+    switch (currentRoute) {
+      case '/about':
+        return <AboutScreen />;
+      case '/skills':
+        return <SkillsScreen />;
+      case '/projects':
+        return <ProjectsScreen />;
+      case '/projects/deepshield':
+        return <DeepShieldScreen />;
+      case '/projects/zero-day-mitigation':
+        return <ZeroDayScreen />;
+      case '/experience':
+        return <ExperienceScreen />;
+      case '/education':
+        return <EducationScreen />;
+      case '/research':
+        return <ResearchScreen />;
+      case '/achievements':
+        return <AchievementsScreen />;
+      case '/contact':
+        return <ContactScreen />;
+      case '/resume':
+        return <ResumeScreen />;
+      case '/':
+      default:
+        return <WorldMap />;
+    }
+  };
 
   return (
-    <div className="relative min-h-screen bg-[#FBF9F5] text-[#18181B] dark:bg-[#0F1219] dark:text-[#F4F4F5] selection:bg-blue-600/15 selection:text-blue-900 dark:selection:text-blue-200 transition-colors duration-200">
-      
-      {/* Restrained Moving Background with Soft Gradients and Abstract Curves */}
-      <StudioCanvas isDarkMode={isDarkMode} />
+    <div className="relative min-h-screen bg-[#04060c] text-slate-100 overflow-x-hidden selection:bg-cyan-500/20 selection:text-cyan-300">
+      {/* Dynamic Computational Cyber Canvas */}
+      <NexusCanvas isDarkMode={isDarkMode} />
 
-      {/* Clean Full-Width Editorial Navigation Header */}
-      <Navigation
-        isDarkMode={isDarkMode}
-        onToggleTheme={toggleTheme}
-        activeSection={activeSection}
-      />
+      {/* Persistent Sci-Fi Top Navigation HUD */}
+      <GameHUD />
 
-      {/* Main Single-Page Editorial Flow */}
+      {/* Main Game World / Dedicated Sector Stage */}
       <main className="relative z-10">
-        <HeroSection />
-        <AboutSection />
-        <SkillsSection />
-        <ProjectsSection />
-        <ExperienceSection />
-        <EducationSection />
-        <ResearchSection />
-        <CertificationsSection />
-        <ContactSection />
+        {renderCurrentSector()}
       </main>
 
-      {/* Clean Editorial Footer */}
-      <Footer />
+      {/* Terminal Easter Egg Drawer (Command Line ~) */}
+      <TerminalDrawer />
 
+      {/* Cyberpunk Game Exploration Footer */}
+      <GameFooter />
     </div>
   );
-};
-
-const PortfolioAppRouter: React.FC = () => {
-  const { currentRoute, isDarkMode, toggleTheme, activeSection } = useGame();
-
-  if (currentRoute === '/resume') {
-    return (
-      <div className="relative min-h-screen bg-[#FBF9F5] text-[#18181B] dark:bg-[#0F1219] dark:text-[#F4F4F5] transition-colors duration-200">
-        <StudioCanvas isDarkMode={isDarkMode} />
-        <Navigation
-          isDarkMode={isDarkMode}
-          onToggleTheme={toggleTheme}
-          activeSection={activeSection}
-        />
-        <main className="relative z-10">
-          <ResumeScreen />
-        </main>
-        <Footer />
-      </div>
-    );
-  }
-
-  if (currentRoute === '/projects/deepshield') {
-    return (
-      <div className="relative min-h-screen bg-[#FBF9F5] text-[#18181B] dark:bg-[#0F1219] dark:text-[#F4F4F5] transition-colors duration-200">
-        <StudioCanvas isDarkMode={isDarkMode} />
-        <Navigation
-          isDarkMode={isDarkMode}
-          onToggleTheme={toggleTheme}
-          activeSection={activeSection}
-        />
-        <main className="relative z-10">
-          <DeepShieldScreen />
-        </main>
-        <Footer />
-      </div>
-    );
-  }
-
-  if (currentRoute === '/projects/zero-day-mitigation') {
-    return (
-      <div className="relative min-h-screen bg-[#FBF9F5] text-[#18181B] dark:bg-[#0F1219] dark:text-[#F4F4F5] transition-colors duration-200">
-        <StudioCanvas isDarkMode={isDarkMode} />
-        <Navigation
-          isDarkMode={isDarkMode}
-          onToggleTheme={toggleTheme}
-          activeSection={activeSection}
-        />
-        <main className="relative z-10">
-          <ZeroDayScreen />
-        </main>
-        <Footer />
-      </div>
-    );
-  }
-
-  return <MainEditorialPortfolio />;
 };
 
 export const App: React.FC = () => {
   return (
     <GameProvider>
-      <PortfolioAppRouter />
+      <PortfolioGameRouter />
     </GameProvider>
   );
 };
