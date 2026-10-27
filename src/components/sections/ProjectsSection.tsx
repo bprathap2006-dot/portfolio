@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useGame } from '../../context/GameContext';
 import { projectsData } from '../../data/projectsData';
 import { ProjectItem } from '../../types/portfolio';
 import { 
@@ -9,12 +8,10 @@ import {
   X, 
   Radio, 
   Network, 
-  GitBranch,
-  Layers
+  GitBranch
 } from 'lucide-react';
 
 export const ProjectsSection: React.FC = () => {
-  const { navigateTo } = useGame();
   const [activeModalProject, setActiveModalProject] = useState<ProjectItem | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
@@ -133,20 +130,11 @@ export const ProjectsSection: React.FC = () => {
                 {/* Actions */}
                 <div className="pt-4 flex flex-wrap items-center gap-3">
                   <button
-                    onClick={() => navigateTo('/projects/deepshield')}
-                    className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-all duration-200 hover:-translate-y-0.5"
-                    title="Open dedicated project detail page"
-                  >
-                    <span>Dedicated Detail Page</span>
-                    <ArrowUpRight className="w-4 h-4" />
-                  </button>
-
-                  <button
                     onClick={() => setActiveModalProject(project1)}
-                    className="inline-flex items-center space-x-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-[#52525B] hover:text-[#18181B] dark:text-[#A1A1AA] dark:hover:text-white bg-[#F5F1EA] dark:bg-[#0F1219] hover:bg-[#E8E4DC] dark:hover:bg-[#1F2636] transition-colors"
+                    className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-all duration-200 hover:-translate-y-0.5"
                   >
-                    <Layers className="w-3.5 h-3.5 text-blue-600" />
-                    <span>Quick Overview</span>
+                    <span>View Project Details</span>
+                    <ArrowUpRight className="w-4 h-4" />
                   </button>
 
                   <button
@@ -270,20 +258,11 @@ export const ProjectsSection: React.FC = () => {
                 {/* Actions */}
                 <div className="pt-4 flex flex-wrap items-center gap-3">
                   <button
-                    onClick={() => navigateTo('/projects/zero-day-mitigation')}
-                    className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-all duration-200 hover:-translate-y-0.5"
-                    title="Open dedicated project detail page"
-                  >
-                    <span>Dedicated Detail Page</span>
-                    <ArrowUpRight className="w-4 h-4" />
-                  </button>
-
-                  <button
                     onClick={() => setActiveModalProject(project2)}
-                    className="inline-flex items-center space-x-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-[#52525B] hover:text-[#18181B] dark:text-[#A1A1AA] dark:hover:text-white bg-[#F5F1EA] dark:bg-[#0F1219] hover:bg-[#E8E4DC] dark:hover:bg-[#1F2636] transition-colors"
+                    className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-all duration-200 hover:-translate-y-0.5"
                   >
-                    <Layers className="w-3.5 h-3.5 text-blue-600" />
-                    <span>Quick Overview</span>
+                    <span>View Project Details</span>
+                    <ArrowUpRight className="w-4 h-4" />
                   </button>
 
                   <button

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, FileText } from 'lucide-react';
-import { useGame } from '../../context/GameContext';
 import { ThemeToggle } from '../ui/ThemeToggle';
 import { GithubIcon, LinkedinIcon } from '../ui/BrandIcons';
 import { profileData } from '../../data/profileData';
@@ -27,7 +26,6 @@ export const Navigation: React.FC<NavigationProps> = ({
   onToggleTheme,
   activeSection,
 }) => {
-  const { currentRoute, navigateTo } = useGame();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -41,18 +39,6 @@ export const Navigation: React.FC<NavigationProps> = ({
 
   const handleNavClick = (id: string) => {
     setIsMobileMenuOpen(false);
-    if (currentRoute !== '/') {
-      navigateTo('/');
-      setTimeout(() => {
-        const target = document.getElementById(id);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-          history.pushState(null, '', `#${id}`);
-        }
-      }, 100);
-      return;
-    }
-
     const target = document.getElementById(id);
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
