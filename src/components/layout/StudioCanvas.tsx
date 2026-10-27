@@ -11,14 +11,13 @@ interface Particle {
   vy: number;
   radius: number;
   alpha: number;
-  maxAlpha: number;
 }
 
 interface WaveLine {
-  yOffset: number;
+  yRatio: number;
   amplitude: number;
   speed: number;
-  wavelength: number;
+  frequency: number;
   alpha: number;
 }
 
@@ -35,7 +34,6 @@ export const StudioCanvas: React.FC<StudioCanvasProps> = ({ isDarkMode = false }
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // Mouse coordinates with damping
     let mouseX = width / 2;
     let mouseY = height / 3;
     let targetMouseX = width / 2;
@@ -58,15 +56,15 @@ export const StudioCanvas: React.FC<StudioCanvasProps> = ({ isDarkMode = false }
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Elegant drifting particles
+    // Drifting particles: very few, delicate
     let particles: Particle[] = [];
-    const particleCount = 22;
+    const particleCount = 18;
 
-    // Fine undulating curved lines
+    // Subtle curved contour lines
     const waveLines: WaveLine[] = [
-      { yOffset: 0.22, amplitude: 35, speed: 0.0006, wavelength: 0.0018, alpha: 0.09 },
-      { yOffset: 0.48, amplitude: 45, speed: 0.0004, wavelength: 0.0014, alpha: 0.07 },
-      { yOffset: 0.75, amplitude: 30, speed: 0.0005, wavelength: 0.002, alpha: 0.08 },
+      { yRatio: 0.2, amplitude: 30, speed: 0.0004, frequency: 0.0015, alpha: 0.06 },
+      { yRatio: 0.45, amplitude: 40, speed: 0.0003, frequency: 0.0012, alpha: 0.05 },
+      { yRatio: 0.75, amplitude: 25, speed: 0.0005, frequency: 0.0018, alpha: 0.05 },
     ];
 
     const initElements = () => {
@@ -75,11 +73,10 @@ export const StudioCanvas: React.FC<StudioCanvasProps> = ({ isDarkMode = false }
         particles.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.25,
-          vy: -Math.random() * 0.35 - 0.1, // gently float upward
+          vx: (Math.random() - 0.5) * 0.2,
+          vy: -Math.random() * 0.25 - 0.05,
           radius: Math.random() * 1.2 + 0.6,
-          alpha: Math.random() * 0.3 + 0.1,
-          maxAlpha: Math.random() * 0.35 + 0.15,
+          alpha: Math.random() * 0.25 + 0.1,
         });
       }
     };
@@ -102,40 +99,39 @@ export const StudioCanvas: React.FC<StudioCanvasProps> = ({ isDarkMode = false }
 
       ctx.clearRect(0, 0, width, height);
 
-      // Smooth mouse damping
-      mouseX += (targetMouseX - mouseX) * 0.035;
-      mouseY += (targetMouseY - mouseY) * 0.035;
+      mouseX += (targetMouseX - mouseX) * 0.03;
+      mouseY += (targetMouseY - mouseY) * 0.03;
       step += 1;
 
-      // 1. Soft moving ambient light gradients
-      const primaryOrbX = width * 0.3 + Math.sin(step * 0.001) * (width * 0.15) + (mouseX - width * 0.5) * 0.05;
-      const primaryOrbY = height * 0.25 + Math.cos(step * 0.0008) * (height * 0.1) + (mouseY - height * 0.5) * 0.05;
+      // 1. Soft moving ambient light
+      const orb1X = width * 0.35 + Math.sin(step * 0.0008) * (width * 0.1) + (mouseX - width * 0.5) * 0.04;
+      const orb1Y = height * 0.25 + Math.cos(step * 0.0006) * (height * 0.08) + (mouseY - height * 0.5) * 0.04;
 
-      const secondaryOrbX = width * 0.75 + Math.cos(step * 0.0012) * (width * 0.12);
-      const secondaryOrbY = height * 0.6 + Math.sin(step * 0.0009) * (height * 0.12);
+      const orb2X = width * 0.7 + Math.cos(step * 0.0009) * (width * 0.1);
+      const orb2Y = height * 0.65 + Math.sin(step * 0.0007) * (height * 0.1);
 
-      // Ambient Orb 1 (Cobalt soft tint)
-      const grad1 = ctx.createRadialGradient(primaryOrbX, primaryOrbY, 20, primaryOrbX, primaryOrbY, Math.min(width, height) * 0.5);
+      // Light gradient wash (Cobalt tone)
+      const grad1 = ctx.createRadialGradient(orb1X, orb1Y, 10, orb1X, orb1Y, Math.min(width, height) * 0.55);
       if (isDarkMode) {
-        grad1.addColorStop(0, 'rgba(56, 189, 248, 0.08)');
-        grad1.addColorStop(1, 'rgba(11, 15, 25, 0)');
+        grad1.addColorStop(0, 'rgba(56, 189, 248, 0.05)');
+        grad1.addColorStop(1, 'rgba(15, 18, 25, 0)');
       } else {
-        grad1.addColorStop(0, 'rgba(37, 99, 235, 0.06)');
-        grad1.addColorStop(0.6, 'rgba(219, 234, 254, 0.03)');
-        grad1.addColorStop(1, 'rgba(250, 249, 246, 0)');
+        grad1.addColorStop(0, 'rgba(29, 78, 216, 0.035)');
+        grad1.addColorStop(0.6, 'rgba(219, 234, 254, 0.015)');
+        grad1.addColorStop(1, 'rgba(251, 249, 245, 0)');
       }
       ctx.fillStyle = grad1;
       ctx.fillRect(0, 0, width, height);
 
-      // Ambient Orb 2 (Warm alabaster / subtle amber glow)
-      const grad2 = ctx.createRadialGradient(secondaryOrbX, secondaryOrbY, 30, secondaryOrbX, secondaryOrbY, Math.min(width, height) * 0.45);
+      // Warm tone wash
+      const grad2 = ctx.createRadialGradient(orb2X, orb2Y, 20, orb2X, orb2Y, Math.min(width, height) * 0.5);
       if (isDarkMode) {
-        grad2.addColorStop(0, 'rgba(139, 92, 246, 0.06)');
-        grad2.addColorStop(1, 'rgba(11, 15, 25, 0)');
+        grad2.addColorStop(0, 'rgba(129, 140, 248, 0.04)');
+        grad2.addColorStop(1, 'rgba(15, 18, 25, 0)');
       } else {
-        grad2.addColorStop(0, 'rgba(245, 158, 11, 0.03)');
-        grad2.addColorStop(0.5, 'rgba(251, 191, 36, 0.015)');
-        grad2.addColorStop(1, 'rgba(250, 249, 246, 0)');
+        grad2.addColorStop(0, 'rgba(217, 119, 6, 0.025)');
+        grad2.addColorStop(0.6, 'rgba(245, 241, 234, 0.015)');
+        grad2.addColorStop(1, 'rgba(251, 249, 245, 0)');
       }
       ctx.fillStyle = grad2;
       ctx.fillRect(0, 0, width, height);
@@ -144,15 +140,15 @@ export const StudioCanvas: React.FC<StudioCanvasProps> = ({ isDarkMode = false }
       ctx.lineWidth = 1;
       waveLines.forEach((wave, idx) => {
         ctx.beginPath();
-        const baseLineY = height * wave.yOffset;
+        const baseLineY = height * wave.yRatio;
         const color = isDarkMode 
-          ? `rgba(148, 163, 184, ${wave.alpha * 0.8})` 
-          : `rgba(100, 116, 139, ${wave.alpha})`;
+          ? `rgba(161, 161, 170, ${wave.alpha * 0.9})` 
+          : `rgba(113, 113, 122, ${wave.alpha})`;
 
         ctx.strokeStyle = color;
 
-        for (let x = 0; x <= width; x += 15) {
-          const y = baseLineY + Math.sin(x * wave.wavelength + step * wave.speed + idx) * wave.amplitude + Math.cos(x * 0.001 + step * 0.0003) * 15;
+        for (let x = 0; x <= width; x += 20) {
+          const y = baseLineY + Math.sin(x * wave.frequency + step * wave.speed + idx) * wave.amplitude + Math.cos(x * 0.0008 + step * 0.0002) * 12;
           if (x === 0) {
             ctx.moveTo(x, y);
           } else {
@@ -162,12 +158,11 @@ export const StudioCanvas: React.FC<StudioCanvasProps> = ({ isDarkMode = false }
         ctx.stroke();
       });
 
-      // 3. Occasional subtle floating particles
+      // 3. Subtle floating specks
       particles.forEach((p) => {
         p.x += p.vx;
         p.y += p.vy;
 
-        // Wrap around smoothly
         if (p.y < -10) {
           p.y = height + 10;
           p.x = Math.random() * width;
@@ -178,8 +173,8 @@ export const StudioCanvas: React.FC<StudioCanvasProps> = ({ isDarkMode = false }
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         const particleColor = isDarkMode 
-          ? `rgba(226, 232, 240, ${p.alpha * 0.7})` 
-          : `rgba(71, 85, 105, ${p.alpha * 0.6})`;
+          ? `rgba(212, 212, 216, ${p.alpha * 0.6})` 
+          : `rgba(82, 82, 91, ${p.alpha * 0.5})`;
         ctx.fillStyle = particleColor;
         ctx.fill();
       });

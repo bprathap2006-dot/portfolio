@@ -35,13 +35,13 @@ export const ResumeScreen: React.FC = () => {
   return (
     <div className="relative min-h-[92vh] pt-24 pb-16 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in font-sans">
       
-      {/* Header with Navigation and Download Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-stone-200 dark:border-slate-800 mb-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#E8E4DC] dark:border-[#232A3B] mb-6">
         <div>
-          <div className="flex items-center space-x-2 text-xs font-semibold text-blue-600 dark:text-blue-400 mb-1">
-            <span>Verified Document Dossier</span>
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-white tracking-tight">
+          <span className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 block mb-1">
+            Verified Document Dossier
+          </span>
+          <h1 className="text-3xl sm:text-4xl font-display font-bold text-[#18181B] dark:text-[#F4F4F5] tracking-tight">
             Curriculum Vitae: <span className="text-blue-600 dark:text-blue-400">Prathap B</span>
           </h1>
         </div>
@@ -50,7 +50,7 @@ export const ResumeScreen: React.FC = () => {
         <div className="flex flex-wrap items-center gap-2.5">
           <button
             onClick={() => navigateTo('/')}
-            className="flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-stone-50 dark:hover:bg-slate-700 border border-stone-200 dark:border-slate-700 text-xs font-semibold shadow-sm transition-all"
+            className="flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-white dark:bg-[#161B26] text-[#52525B] dark:text-[#A1A1AA] hover:text-[#18181B] dark:hover:text-white border border-[#E8E4DC] dark:border-[#232A3B] text-xs font-semibold shadow-editorial-sm transition-all hover:-translate-y-0.5"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Return to Portfolio</span>
@@ -58,7 +58,7 @@ export const ResumeScreen: React.FC = () => {
 
           <button
             onClick={handleDownload}
-            className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-sm transition-all"
+            className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-sm transition-all hover:-translate-y-0.5"
             title="Download original untouched PDF"
           >
             {downloadState === 'success' ? (
@@ -76,7 +76,7 @@ export const ResumeScreen: React.FC = () => {
 
           <button
             onClick={handleOpenNewTab}
-            className="flex items-center space-x-1.5 px-4 py-2.5 rounded-xl bg-stone-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-stone-200 dark:hover:bg-slate-700 text-xs font-semibold transition-colors"
+            className="flex items-center space-x-1.5 px-4 py-2.5 rounded-xl bg-[#F5F1EA] dark:bg-[#161B26] text-[#52525B] dark:text-[#A1A1AA] hover:text-[#18181B] dark:hover:text-white border border-[#E8E4DC] dark:border-[#232A3B] text-xs font-semibold transition-colors"
             title="Open original document in dedicated tab"
           >
             <span>Open in New Tab</span>
@@ -99,29 +99,28 @@ export const ResumeScreen: React.FC = () => {
       </div>
 
       {/* Embedded Native PDF Viewer Frame */}
-      <div className="w-full rounded-3xl overflow-hidden bg-white dark:bg-slate-900 border border-stone-200/90 dark:border-slate-800 shadow-studio-lg">
-        <div className="bg-stone-100 dark:bg-slate-850 px-4 py-2.5 border-b border-stone-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500">
+      <div className="w-full rounded-3xl overflow-hidden bg-white dark:bg-[#161B26] border border-[#E8E4DC] dark:border-[#232A3B] shadow-editorial-lg">
+        <div className="bg-[#F5F1EA] dark:bg-[#0F1219] px-4 py-2.5 border-b border-[#E8E4DC] dark:border-[#232A3B] flex items-center justify-between text-xs text-[#71717A]">
           <div className="flex items-center space-x-2">
-            <span className="w-3 h-3 rounded-full bg-slate-300 dark:bg-slate-700 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-700 inline-block" />
             <span className="font-mono text-[11px]">Prathap-B-Resume.pdf</span>
           </div>
           <span className="text-[11px]">2 Pages &bull; Standard Academic Layout</span>
         </div>
 
-        <div className="w-full h-[780px] bg-stone-100 dark:bg-slate-950 flex flex-col items-center justify-center relative">
+        <div className="w-full h-[800px] bg-[#F5F1EA] dark:bg-[#0F1219] flex flex-col items-center justify-center relative">
           <object
             data="/Prathap-B-Resume.pdf"
             type="application/pdf"
             className="w-full h-full"
             aria-label="Embedded PDF Viewer for Prathap B's Resume"
           >
-            {/* Fallback in case browser does not support inline PDF object */}
             <div className="p-10 text-center space-y-4 max-w-md">
               <FileText className="w-12 h-12 text-blue-600 mx-auto" />
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+              <h3 className="text-lg font-bold text-[#18181B] dark:text-[#F4F4F5]">
                 PDF Preview Not Embedded by Your Browser
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-[#71717A]">
                 You can download the original resume or open it in a new tab:
               </p>
               <div className="flex justify-center gap-3">
@@ -133,7 +132,7 @@ export const ResumeScreen: React.FC = () => {
                 </button>
                 <button
                   onClick={handleOpenNewTab}
-                  className="px-4 py-2 rounded-xl bg-stone-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs font-semibold"
+                  className="px-4 py-2 rounded-xl bg-[#F5F1EA] dark:bg-[#161B26] text-[#18181B] dark:text-[#F4F4F5] text-xs font-semibold"
                 >
                   Open in New Tab
                 </button>

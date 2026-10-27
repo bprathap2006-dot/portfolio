@@ -19,7 +19,6 @@ import { ZeroDayScreen } from './components/screens/ZeroDayScreen';
 const MainEditorialPortfolio: React.FC = () => {
   const { isDarkMode, toggleTheme, activeSection, setActiveSection } = useGame();
 
-  // Scroll spy to update active section in navigation smoothly
   useEffect(() => {
     const sectionIds = [
       'home',
@@ -56,12 +55,12 @@ const MainEditorialPortfolio: React.FC = () => {
   }, [setActiveSection]);
 
   return (
-    <div className="relative min-h-screen bg-[#FAF9F6] text-slate-800 dark:bg-[#0B0F19] dark:text-slate-100 selection:bg-blue-500/20 selection:text-blue-900 dark:selection:text-blue-200 transition-colors duration-200">
+    <div className="relative min-h-screen bg-[#FBF9F5] text-[#18181B] dark:bg-[#0F1219] dark:text-[#F4F4F5] selection:bg-blue-600/15 selection:text-blue-900 dark:selection:text-blue-200 transition-colors duration-200">
       
-      {/* Refined Understated Studio Canvas Background */}
+      {/* Restrained Moving Background with Soft Gradients and Abstract Curves */}
       <StudioCanvas isDarkMode={isDarkMode} />
 
-      {/* Clean Floating Studio Navigation */}
+      {/* Clean Full-Width Editorial Navigation Header */}
       <Navigation
         isDarkMode={isDarkMode}
         onToggleTheme={toggleTheme}
@@ -81,7 +80,7 @@ const MainEditorialPortfolio: React.FC = () => {
         <ContactSection />
       </main>
 
-      {/* Clean Professional Footer */}
+      {/* Clean Editorial Footer */}
       <Footer />
 
     </div>
@@ -93,7 +92,7 @@ const PortfolioAppRouter: React.FC = () => {
 
   if (currentRoute === '/resume') {
     return (
-      <div className="relative min-h-screen bg-[#FAF9F6] text-slate-800 dark:bg-[#0B0F19] dark:text-slate-100 transition-colors duration-200">
+      <div className="relative min-h-screen bg-[#FBF9F5] text-[#18181B] dark:bg-[#0F1219] dark:text-[#F4F4F5] transition-colors duration-200">
         <StudioCanvas isDarkMode={isDarkMode} />
         <Navigation
           isDarkMode={isDarkMode}
@@ -110,7 +109,7 @@ const PortfolioAppRouter: React.FC = () => {
 
   if (currentRoute === '/projects/deepshield') {
     return (
-      <div className="relative min-h-screen bg-[#FAF9F6] text-slate-800 dark:bg-[#0B0F19] dark:text-slate-100 transition-colors duration-200">
+      <div className="relative min-h-screen bg-[#FBF9F5] text-[#18181B] dark:bg-[#0F1219] dark:text-[#F4F4F5] transition-colors duration-200">
         <StudioCanvas isDarkMode={isDarkMode} />
         <Navigation
           isDarkMode={isDarkMode}
@@ -127,7 +126,7 @@ const PortfolioAppRouter: React.FC = () => {
 
   if (currentRoute === '/projects/zero-day-mitigation') {
     return (
-      <div className="relative min-h-screen bg-[#FAF9F6] text-slate-800 dark:bg-[#0B0F19] dark:text-slate-100 transition-colors duration-200">
+      <div className="relative min-h-screen bg-[#FBF9F5] text-[#18181B] dark:bg-[#0F1219] dark:text-[#F4F4F5] transition-colors duration-200">
         <StudioCanvas isDarkMode={isDarkMode} />
         <Navigation
           isDarkMode={isDarkMode}
