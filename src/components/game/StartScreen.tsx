@@ -21,56 +21,63 @@ export const StartScreen: React.FC = () => {
 
   const menuOptions = [
     {
-      id: 'continue',
-      label: 'CONTINUE',
-      sub: 'Identity Core & Profile Dossier',
+      id: 'profile',
+      label: 'DEVELOPER PROFILE',
+      sub: 'Professional Background & Technical Journey',
+      buttonText: 'Explore Profile',
       action: () => {
         soundEngine.playSelect();
         enterSector('/about');
       },
     },
     {
-      id: 'load_game',
-      label: 'LOAD GAME / MISSIONS',
-      sub: 'DeepShield & RL Zero-Day Defense Labs',
+      id: 'projects',
+      label: 'PROJECT SHOWCASE',
+      sub: 'AI Applications & Cybersecurity Solutions',
+      buttonText: 'View Projects',
       action: () => {
         soundEngine.playSelect();
         enterSector('/projects');
       },
     },
     {
-      id: 'new_game',
-      label: 'NEW GAME / START EXPLORATION',
-      sub: 'Enter Interactive Nexus World Map',
+      id: 'skills',
+      label: 'TECHNOLOGY STACK',
+      sub: 'Programming Languages, Frameworks & Development Tools',
+      buttonText: 'Explore Technologies',
       action: () => {
-        soundEngine.playWarp();
-        enterSector('/');
+        soundEngine.playSelect();
+        enterSector('/skills');
       },
     },
     {
-      id: 'dossier',
-      label: 'DOSSIER / VERIFIED RESUME (PDF)',
-      sub: 'Curriculum Vitae & Verified Academic Record',
+      id: 'resume',
+      label: 'PROFESSIONAL RESUME',
+      sub: 'Academic Qualifications & Technical Credentials',
+      buttonText: 'View Resume',
       action: () => {
         soundEngine.playSelect();
         enterSector('/resume');
       },
     },
     {
-      id: 'settings',
-      label: 'SETTINGS & AUDIO',
-      sub: isSoundEnabled ? 'Web Audio API: ACTIVE' : 'Web Audio API: MUTED',
+      id: 'research',
+      label: 'RESEARCH & INNOVATION',
+      sub: 'Reinforcement Learning & Intelligent Security Systems',
+      buttonText: 'Explore Research',
       action: () => {
-        toggleSound();
+        soundEngine.playSelect();
+        enterSector('/research');
       },
     },
     {
-      id: 'quit',
-      label: 'QUIT GAME',
-      sub: 'Developer Availability & Recruiter Transmission',
+      id: 'connect',
+      label: "LET'S CONNECT",
+      sub: 'Internship Opportunities & Professional Networking',
+      buttonText: 'Contact Me',
       action: () => {
         soundEngine.playSelect();
-        setQuitModalOpen(true);
+        enterSector('/contact');
       },
     },
   ];
@@ -128,11 +135,11 @@ export const StartScreen: React.FC = () => {
 
   return (
     <div 
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-[#04060c] cyber-scanlines overflow-y-auto p-4 sm:p-8 transition-all duration-500 ${
+      className={`fixed inset-0 z-50 flex flex-col items-center justify-between bg-[#04060c] cyber-scanlines overflow-y-auto p-4 sm:p-8 transition-all duration-500 ${
         isWarping ? 'opacity-0 scale-105 pointer-events-none' : 'opacity-100 scale-100'
       }`}
       role="dialog"
-      aria-label="PRATHAP // NEXUS Cyberpunk Title Menu"
+      aria-label="PRATHAP B // DEVELOPER PORTFOLIO"
     >
       {/* Dynamic Background: Ambient Neon Fog & Rain Reflective Gradients */}
       <div 
@@ -144,15 +151,15 @@ export const StartScreen: React.FC = () => {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_80%,rgba(236,72,153,0.12)_0%,transparent_60%)] pointer-events-none" />
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,240,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,240,255,0.04)_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none" />
 
-      {/* Top Telemetry & Controls Bar */}
-      <header className="absolute top-4 left-4 right-4 sm:top-6 sm:left-8 sm:right-8 flex items-center justify-between text-xs font-mono text-slate-400 z-20">
+      {/* Top Header & Controls Bar */}
+      <header className="relative w-full max-w-6xl mx-auto flex items-center justify-between text-xs font-mono text-slate-400 z-20 pt-2 pb-4">
         <div className="flex items-center space-x-2.5">
           <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_10px_#00f0ff] animate-pulse" />
           <span className="text-cyan-300 font-bold tracking-widest text-[11px] sm:text-xs">
-            NEXUS OS // BOOT v2.7.4_RELEASE
+            PRATHAP B // DEVELOPER PORTFOLIO
           </span>
           <span className="hidden md:inline px-2 py-0.5 rounded bg-slate-900/80 border border-slate-800 text-[10px] text-slate-400">
-            AUDIO: {isSoundEnabled ? 'SYNTHESIZER ONLINE' : 'MUTED'}
+            AUDIO: {isSoundEnabled ? 'ONLINE' : 'MUTED'}
           </span>
         </div>
 
@@ -162,8 +169,8 @@ export const StartScreen: React.FC = () => {
             onClick={toggleSound}
             onMouseEnter={() => soundEngine.playHover()}
             className="flex items-center space-x-1.5 px-3 py-1.5 rounded-md bg-slate-900/90 border border-slate-700/80 hover:border-cyan-400 text-slate-300 hover:text-cyan-300 transition-colors focus-visible:ring-2 focus-visible:ring-cyan-400"
-            aria-label={isSoundEnabled ? 'Mute Audio' : 'Unmute Audio Synthesizer'}
-            title="Toggle Web Audio API Synthesizer"
+            aria-label={isSoundEnabled ? 'Mute Audio' : 'Unmute Audio'}
+            title="Toggle Web Audio Synthesizer"
           >
             {isSoundEnabled ? (
               <>
@@ -178,33 +185,33 @@ export const StartScreen: React.FC = () => {
             )}
           </button>
 
-          {/* Skip Intro [ESC] Button */}
+          {/* Direct Overview Button */}
           <button
             onClick={() => enterSector('/')}
             onMouseEnter={() => soundEngine.playHover()}
             className="flex items-center space-x-1.5 px-3 py-1.5 rounded-md bg-cyan-950/40 border border-cyan-800/60 hover:border-cyan-400 text-cyan-300 hover:text-white transition-colors text-[11px] font-mono focus-visible:ring-2 focus-visible:ring-cyan-400"
-            title="Skip directly to World Map (ESC)"
+            title="Open Interactive Overview"
           >
-            <span>MAP [ESC]</span>
+            <span>OVERVIEW</span>
             <ChevronRight className="w-3.5 h-3.5" />
           </button>
         </div>
       </header>
 
-      {/* Main Cyberpunk Split View: Left Menu + Right Holographic ID Card */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-auto pt-16 pb-12">
+      {/* Main Split View: Left Content & Cards + Right Holographic ID Card */}
+      <div className="relative z-10 w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-auto py-4">
         
-        {/* Left Column: Cyberpunk Title & Game Menu */}
-        <div className="lg:col-span-7 space-y-6 sm:space-y-8 text-left">
+        {/* Left Column: Title, Subtitle, Badges & 6 Cards */}
+        <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-left">
           
-          {/* Main Logo & Title in Cyberpunk Aesthetic */}
+          {/* Main Logo & Title in Professional Technical Aesthetic */}
           <div className="space-y-2">
             <div className="flex flex-wrap items-center gap-2 mb-2">
               <span className="px-2.5 py-0.5 text-[10px] font-mono font-bold tracking-widest uppercase bg-[#fcee0a] text-slate-950 rounded-sm shadow-[0_0_12px_rgba(252,238,10,0.6)]">
-                EDITION 2.0
+                DEVELOPER PROFILE
               </span>
               <span className="px-2.5 py-0.5 text-[10px] font-mono font-semibold tracking-wider uppercase bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 rounded-sm">
-                EXPLORATION SYSTEM
+                DIGITAL SHOWCASE
               </span>
               <span className="hidden sm:inline-flex items-center space-x-1 px-2 py-0.5 text-[10px] font-mono text-emerald-400 bg-emerald-950/50 border border-emerald-500/30 rounded-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping inline-block" />
@@ -213,19 +220,23 @@ export const StartScreen: React.FC = () => {
             </div>
 
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-orbitron font-black text-white tracking-wider leading-none">
-              PRATHAP<span className="text-cyan-400 neon-glow-cyan">//</span><span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-400 to-purple-400">NEXUS</span>
+              PRATHAP <span className="text-cyan-400 neon-glow-cyan">B</span>
             </h1>
 
             <p className="text-xs sm:text-sm font-mono text-cyan-200/90 tracking-widest uppercase font-semibold">
-              ASPIRING SOFTWARE DEVELOPER &bull; AI &bull; CYBERSECURITY
+              SOFTWARE DEVELOPMENT • ARTIFICIAL INTELLIGENCE • CYBERSECURITY
+            </p>
+
+            <p className="text-xs font-mono text-slate-400 tracking-wider uppercase">
+              ASPIRING SOFTWARE DEVELOPER • AI ENTHUSIAST • CYBERSECURITY RESEARCHER
             </p>
           </div>
 
-          {/* Cyberpunk Title Vertical Menu */}
+          {/* 6 Homepage Cards */}
           <nav 
-            className="space-y-2 sm:space-y-2.5 pt-2 max-w-lg" 
+            className="space-y-2 sm:space-y-2.5 pt-1 max-w-lg" 
             role="menu"
-            aria-label="Nexus Main Menu"
+            aria-label="Developer Portfolio Navigation"
           >
             {menuOptions.map((opt, idx) => {
               const isSelected = selectedIndex === idx;
@@ -237,37 +248,35 @@ export const StartScreen: React.FC = () => {
                     setSelectedIndex(idx);
                     soundEngine.playHover();
                   }}
-                  className={`w-full group text-left px-4 py-3 sm:py-3.5 rounded-lg border transition-all duration-200 flex items-center justify-between ${
+                  className={`w-full group text-left px-4 py-2.5 sm:py-3 rounded-lg border transition-all duration-200 flex items-center justify-between ${
                     isSelected
                       ? 'bg-gradient-to-r from-cyan-950/90 via-slate-900/90 to-slate-950/90 border-cyan-400 shadow-[0_0_20px_rgba(0,240,255,0.35)] translate-x-2'
                       : 'bg-slate-950/60 hover:bg-slate-900/60 border-slate-800/80 hover:border-slate-700 text-slate-300'
                   }`}
                   role="menuitem"
                 >
-                  <div className="flex items-center space-x-3.5">
-                    <span className={`w-2 h-2 rounded-sm transition-all duration-200 ${
+                  <div className="flex items-center space-x-3.5 min-w-0 pr-2">
+                    <span className={`w-2 h-2 rounded-sm flex-shrink-0 transition-all duration-200 ${
                       isSelected 
                         ? 'bg-cyan-400 shadow-[0_0_8px_#00f0ff] scale-125 rotate-45' 
                         : 'bg-slate-700 group-hover:bg-cyan-500/50'
                     }`} />
-                    <div>
-                      <div className={`font-orbitron font-bold text-sm sm:text-base tracking-wider ${
+                    <div className="min-w-0">
+                      <div className={`font-orbitron font-bold text-xs sm:text-sm tracking-wider truncate ${
                         isSelected ? 'text-cyan-300 neon-glow-cyan' : 'text-slate-200 group-hover:text-white'
                       }`}>
                         {opt.label}
                       </div>
-                      <div className="text-[11px] font-mono text-slate-400 group-hover:text-slate-300">
+                      <div className="text-[11px] font-mono text-slate-400 group-hover:text-slate-300 truncate">
                         {opt.sub}
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-2">
-                    {opt.id === 'new_game' && (
-                      <span className="hidden sm:inline-block text-[9px] font-mono px-1.5 py-0.5 rounded bg-cyan-900/40 text-cyan-300 border border-cyan-500/30">
-                        PRIMARY
-                      </span>
-                    )}
+                  <div className="flex items-center space-x-2 flex-shrink-0">
+                    <span className="hidden sm:inline-block text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950/60 text-cyan-300 border border-cyan-500/30 whitespace-nowrap">
+                      {opt.buttonText}
+                    </span>
                     <ChevronRight className={`w-4 h-4 transition-transform duration-200 ${
                       isSelected ? 'text-cyan-400 translate-x-1' : 'text-slate-600 group-hover:text-slate-400'
                     }`} />
@@ -278,7 +287,7 @@ export const StartScreen: React.FC = () => {
           </nav>
 
           {/* Quick Terminal Trigger & Keyboard Legend */}
-          <div className="pt-2 flex flex-wrap items-center gap-3 text-[11px] font-mono text-slate-500">
+          <div className="pt-1 flex flex-wrap items-center gap-3 text-[11px] font-mono text-slate-500">
             <span className="flex items-center space-x-1">
               <kbd className="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">↑</kbd>
               <kbd className="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">↓</kbd>
@@ -288,10 +297,6 @@ export const StartScreen: React.FC = () => {
               <kbd className="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">ENTER</kbd>
               <span>SELECT</span>
             </span>
-            <span className="flex items-center space-x-1">
-              <kbd className="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">ESC</kbd>
-              <span>MAP</span>
-            </span>
             <button
               onClick={() => {
                 soundEngine.playKey();
@@ -300,17 +305,17 @@ export const StartScreen: React.FC = () => {
               className="text-cyan-400 hover:text-cyan-300 hover:underline inline-flex items-center space-x-1 ml-auto"
             >
               <Terminal className="w-3 h-3" />
-              <span>OPEN CLI (~)</span>
+              <span>TERMINAL (~)</span>
             </button>
           </div>
 
         </div>
 
-        {/* Right Column: Cyberpunk Pilot Hologram Card */}
+        {/* Right Column: Profile Hologram Card */}
         <div className="lg:col-span-5 flex flex-col items-center">
           <div className="relative w-full max-w-md p-6 sm:p-7 rounded-2xl bg-gradient-to-b from-[#080d1a]/95 via-[#060a14]/95 to-[#04060c]/95 border border-cyan-500/40 shadow-[0_0_50px_rgba(0,240,255,0.2)] backdrop-blur-xl">
             
-            {/* Corner Decorative HUD Brackets */}
+            {/* Corner Decorative Brackets */}
             <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-cyan-400" />
             <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-cyan-400" />
             <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-pink-500" />
@@ -342,7 +347,7 @@ export const StartScreen: React.FC = () => {
               </div>
 
               {/* Status Indicator Pip */}
-              <div className="absolute bottom-1 right-2 w-4 h-4 rounded-full bg-emerald-400 border-2 border-[#04060c] shadow-[0_0_10px_#10b981]" title="System Status: ONLINE" />
+              <div className="absolute bottom-1 right-2 w-4 h-4 rounded-full bg-emerald-400 border-2 border-[#04060c] shadow-[0_0_10px_#10b981]" title="Status: ONLINE" />
             </div>
 
             {/* Identity Details */}
@@ -371,7 +376,7 @@ export const StartScreen: React.FC = () => {
               </div>
 
               <p className="text-xs italic text-slate-400 pt-1 font-sans">
-                &ldquo;Building ideas into intelligent software.&rdquo;
+                &ldquo;Building Software. Exploring AI. Advancing Technology.&rdquo;
               </p>
             </div>
 
@@ -383,7 +388,7 @@ export const StartScreen: React.FC = () => {
                 className="px-3.5 py-2.5 rounded-lg bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-500/60 text-cyan-300 hover:text-white font-mono text-xs font-semibold flex items-center justify-center space-x-1.5 transition-all shadow-[0_0_15px_rgba(0,240,255,0.2)] focus-visible:ring-2 focus-visible:ring-cyan-400"
               >
                 <FileText className="w-3.5 h-3.5 text-cyan-400" />
-                <span>VIEW DOSSIER</span>
+                <span>VIEW RESUME</span>
               </button>
 
               <button
@@ -400,28 +405,28 @@ export const StartScreen: React.FC = () => {
             {/* Quick Sector Links */}
             <div className="pt-4 border-t border-slate-800/80 mt-4 flex items-center justify-between text-[11px] font-mono text-slate-400">
               <button 
-                onClick={() => enterSector('/skills')} 
+                onClick={() => enterSector('/about')} 
                 className="hover:text-cyan-300 transition-colors"
               >
-                // TECH LAB
+                // PROFILE
               </button>
               <button 
                 onClick={() => enterSector('/projects')} 
                 className="hover:text-purple-300 transition-colors"
               >
-                // MISSIONS
+                // PROJECTS
               </button>
               <button 
-                onClick={() => enterSector('/experience')} 
+                onClick={() => enterSector('/skills')} 
                 className="hover:text-amber-300 transition-colors"
               >
-                // HANON LOG
+                // TECH STACK
               </button>
               <button 
                 onClick={() => enterSector('/contact')} 
                 className="hover:text-pink-300 transition-colors"
               >
-                // CONTACT
+                // CONNECT
               </button>
             </div>
 
@@ -430,7 +435,17 @@ export const StartScreen: React.FC = () => {
 
       </div>
 
-      {/* Quit Modal / Recruiter Transmission Overlay */}
+      {/* Footer */}
+      <footer className="relative z-10 w-full max-w-6xl mx-auto pt-4 pb-2 border-t border-slate-800/60 text-center font-mono text-xs text-slate-400 space-y-1">
+        <p className="text-slate-300 font-semibold tracking-wider">
+          Designed &amp; Developed by PRATHAP B
+        </p>
+        <p className="text-[11px] text-cyan-400/90">
+          Building Software. Exploring AI. Advancing Technology.
+        </p>
+      </footer>
+
+      {/* Contact Overlay Modal */}
       {quitModalOpen && (
         <div 
           className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-fade-in"
@@ -439,12 +454,12 @@ export const StartScreen: React.FC = () => {
         >
           <div className="relative max-w-md w-full p-6 rounded-2xl bg-[#070b16] border border-cyan-500/50 shadow-[0_0_40px_rgba(0,240,255,0.3)] space-y-4 font-mono text-left">
             <div className="flex items-center justify-between pb-3 border-b border-cyan-900/50 text-cyan-400">
-              <span className="font-bold tracking-wider text-sm">TRANSMISSION CONFIRMATION</span>
-              <span className="text-xs text-emerald-400">STATUS: OPEN FOR WORK</span>
+              <span className="font-bold tracking-wider text-sm">DEVELOPER CONTACT</span>
+              <span className="text-xs text-emerald-400">STATUS: OPEN FOR OPPORTUNITIES</span>
             </div>
 
             <p className="text-xs text-slate-300 leading-relaxed">
-              Prathap B is actively seeking Software Developer internships, junior engineering roles, and AI/Cybersecurity opportunities (Graduating April 2027).
+              Prathap B is actively seeking Software Developer internships, junior software roles, and AI/Cybersecurity opportunities (Graduating April 2027).
             </p>
 
             <div className="p-3 rounded-lg bg-slate-900/90 border border-slate-800 text-xs text-slate-300 space-y-1">
@@ -458,7 +473,7 @@ export const StartScreen: React.FC = () => {
                 onClick={() => setQuitModalOpen(false)}
                 className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold"
               >
-                RETURN TO MENU
+                CLOSE
               </button>
               <button
                 onClick={() => {
@@ -467,7 +482,7 @@ export const StartScreen: React.FC = () => {
                 }}
                 className="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 font-bold text-xs shadow-md"
               >
-                SEND TRANSMISSION
+                CONTACT ME
               </button>
             </div>
           </div>

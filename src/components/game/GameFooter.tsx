@@ -21,7 +21,7 @@ export const GameFooter: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleReturnToTitle = () => {
+  const handleReturnToHome = () => {
     soundEngine.playSelect();
     setShowStartScreen(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -31,17 +31,17 @@ export const GameFooter: React.FC = () => {
     <footer className="relative border-t border-cyan-900/40 bg-[#020408]/95 py-12 text-xs font-mono text-slate-400 z-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
-        {/* Top Footer Strip: Title Menu Return + Fast Sector Navigation */}
+        {/* Top Footer Strip: Home Return + Fast Navigation */}
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6 pb-6 border-b border-cyan-950">
           
           <div className="flex items-center space-x-3">
             <button
-              onClick={handleReturnToTitle}
+              onClick={handleReturnToHome}
               onMouseEnter={() => soundEngine.playHover()}
               className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-500/50 hover:border-cyan-400 text-cyan-300 font-bold tracking-wider transition-all shadow-[0_0_15px_rgba(0,240,255,0.2)] focus-visible:ring-2 focus-visible:ring-cyan-400"
             >
               <Home className="w-4 h-4" />
-              <span>RETURN TO TITLE MENU</span>
+              <span>HOME</span>
             </button>
 
             <button
@@ -57,20 +57,20 @@ export const GameFooter: React.FC = () => {
             </button>
           </div>
 
-          {/* Quick Sector Teleports */}
+          {/* Quick Section Links */}
           <div className="flex flex-wrap items-center justify-center gap-2 text-[11px]">
-            <span className="text-slate-500 text-[10px] tracking-wider uppercase">JUMP SECTOR:</span>
+            <span className="text-slate-500 text-[10px] tracking-wider uppercase">NAVIGATE:</span>
             <button 
               onClick={() => { soundEngine.playSelect(); navigateTo('/'); }} 
               className="px-2.5 py-1 rounded bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-cyan-300"
             >
-              // 00 Map
+              // 00 Overview
             </button>
             <button 
               onClick={() => { soundEngine.playSelect(); navigateTo('/about'); }} 
               className="px-2.5 py-1 rounded bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-cyan-300"
             >
-              // 01 About
+              // 01 Profile
             </button>
             <button 
               onClick={() => { soundEngine.playSelect(); navigateTo('/skills'); }} 
@@ -106,7 +106,7 @@ export const GameFooter: React.FC = () => {
               onClick={() => { soundEngine.playSelect(); navigateTo('/contact'); }} 
               className="px-2.5 py-1 rounded bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-pink-300"
             >
-              // 08 Contact
+              // 08 Connect
             </button>
           </div>
 
@@ -128,14 +128,12 @@ export const GameFooter: React.FC = () => {
           {/* Identity & Verification */}
           <div className="space-y-1 text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start space-x-2 text-slate-100 font-orbitron font-bold text-sm tracking-wider">
-              <span>PRATHAP // NEXUS</span>
-              <span className="text-cyan-400">&bull;</span>
-              <span className="text-xs font-mono text-cyan-300 font-normal">v2.7.4</span>
+              <span>Designed &amp; Developed by PRATHAP B</span>
             </div>
-            <p className="text-[11px] text-slate-400">
-              Aspiring Software Developer &bull; B.Tech IT (2023–2027) &bull; AKT MCET
+            <p className="text-[11px] text-cyan-400/90">
+              Building Software. Exploring AI. Advancing Technology.
             </p>
-            <div className="flex items-center justify-center md:justify-start space-x-1 text-[11px] text-emerald-400">
+            <div className="flex items-center justify-center md:justify-start space-x-1 text-[11px] text-emerald-400 pt-1">
               <CheckCircle2 className="w-3.5 h-3.5" />
               <span>ACADEMIC VERIFICATION // CGPA 7.90</span>
             </div>
@@ -159,7 +157,7 @@ export const GameFooter: React.FC = () => {
             </a>
           </div>
 
-          {/* Social Profiles & Dossier */}
+          {/* Social Profiles & Resume */}
           <div className="flex items-center justify-center md:justify-end space-x-3">
             <a
               href={profileData.githubUrl}
@@ -189,7 +187,7 @@ export const GameFooter: React.FC = () => {
                 navigateTo('/resume');
               }}
               className="flex items-center space-x-1.5 px-3 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-cyan-300 border border-slate-800 hover:border-cyan-500/50 transition-colors text-xs"
-              title="Verified Resume Dossier"
+              title="View Resume"
             >
               <FileText className="w-3.5 h-3.5 text-cyan-400" />
               <span>RESUME</span>

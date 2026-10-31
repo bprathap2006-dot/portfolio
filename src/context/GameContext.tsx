@@ -32,20 +32,20 @@ interface GameContextType {
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
 
-// Sector coordinate map for telemetry
+// Section coordinate map for navigation
 const SECTOR_COORDS: Record<string, { name: string; coord: string }> = {
-  '/': { name: 'THE NEXUS WORLD MAP', coord: 'SECTOR_00 // 0x00_HUB' },
-  '/about': { name: 'IDENTITY CORE', coord: 'SECTOR_01 // 0x1A_CORE' },
-  '/skills': { name: 'TECH LAB', coord: 'SECTOR_02 // 0x2B_TOOL' },
-  '/projects': { name: 'PROJECT DIMENSION', coord: 'SECTOR_03 // 0x3C_LABS' },
-  '/projects/deepshield': { name: 'DEEPSHIELD MISSION', coord: 'MISSION_03A // 0x3D_AUDIO' },
-  '/projects/zero-day-mitigation': { name: 'RL MITIGATION MISSION', coord: 'MISSION_03B // 0x3E_CYBER' },
-  '/experience': { name: 'EXPERIENCE ARCHIVE', coord: 'SECTOR_04 // 0x4F_HANON' },
-  '/education': { name: 'ACADEMIC VAULT', coord: 'SECTOR_05 // 0x50_AKT' },
-  '/research': { name: 'RESEARCH TERMINAL', coord: 'SECTOR_06 // 0x61_PAPER' },
-  '/achievements': { name: 'ACHIEVEMENT MODULE', coord: 'SECTOR_07 // 0x72_CREST' },
-  '/contact': { name: 'CONTACT PORTAL', coord: 'SECTOR_08 // 0x83_COMM' },
-  '/resume': { name: 'RESUME ARCHIVE', coord: 'DOSSIER // 0x94_RESUME' },
+  '/': { name: 'DEVELOPER OVERVIEW', coord: 'SECTION_00' },
+  '/about': { name: 'DEVELOPER PROFILE', coord: 'SECTION_01' },
+  '/skills': { name: 'TECHNOLOGY STACK', coord: 'SECTION_02' },
+  '/projects': { name: 'PROJECT SHOWCASE', coord: 'SECTION_03' },
+  '/projects/deepshield': { name: 'DEEPSHIELD AI', coord: 'PROJECT_03A' },
+  '/projects/zero-day-mitigation': { name: 'ZERO-DAY MITIGATION', coord: 'PROJECT_03B' },
+  '/experience': { name: 'EXPERIENCE', coord: 'SECTION_04' },
+  '/education': { name: 'ACADEMIC QUALIFICATIONS', coord: 'SECTION_05' },
+  '/research': { name: 'RESEARCH & INNOVATION', coord: 'SECTION_06' },
+  '/achievements': { name: 'CREDENTIALS', coord: 'SECTION_07' },
+  '/contact': { name: "LET'S CONNECT", coord: 'SECTION_08' },
+  '/resume': { name: 'PROFESSIONAL RESUME', coord: 'RESUME_DOC' },
 };
 
 export const GameProvider: React.FC<{ children: ReactNode }> = ({ children }) => {

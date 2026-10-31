@@ -35,9 +35,9 @@ export const GameHUD: React.FC = () => {
     <header className="fixed top-0 left-0 right-0 z-40 bg-[#040711]/90 backdrop-blur-xl border-b border-cyan-900/40 shadow-[0_4px_30px_rgba(0,0,0,0.7)] py-2 sm:py-2.5 px-3 sm:px-6">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
         
-        {/* Left: Title Screen, World Map & Back Navigation */}
+        {/* Left: Home, Overview & Back Navigation */}
         <div className="flex items-center space-x-2 sm:space-x-2.5">
-          {/* Back to Title Menu Button */}
+          {/* Back to Home Button */}
           <button
             onClick={() => {
               soundEngine.playSelect();
@@ -45,35 +45,35 @@ export const GameHUD: React.FC = () => {
             }}
             onMouseEnter={() => soundEngine.playHover()}
             className="flex items-center space-x-1 px-2.5 py-1.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-cyan-300 border border-slate-700/80 font-mono text-[11px] font-semibold transition-all focus-visible:ring-2 focus-visible:ring-cyan-400"
-            title="Open Cyberpunk Title Menu"
+            title="Return to Home"
           >
             <Home className="w-3.5 h-3.5 text-cyan-400" />
-            <span className="hidden sm:inline">TITLE MENU</span>
+            <span className="hidden sm:inline">HOME</span>
           </button>
 
-          {/* Back to World Map Button */}
+          {/* Back to Overview Button */}
           {!isAtWorldMap ? (
             <button
               onClick={() => { soundEngine.playSelect(); navigateTo('/'); }}
               onMouseEnter={() => soundEngine.playHover()}
               className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-cyan-950/80 hover:bg-cyan-900 text-cyan-300 border border-cyan-500/50 hover:border-cyan-400 font-mono text-xs font-semibold tracking-wider transition-all shadow-[0_0_12px_rgba(0,240,255,0.2)] focus-visible:ring-2 focus-visible:ring-cyan-400"
-              title="Return to World Map (ESC)"
+              title="Return to Overview (ESC)"
             >
               <ArrowLeft className="w-3.5 h-3.5 animate-pulse" />
-              <span className="hidden sm:inline">[ WORLD MAP ]</span>
-              <span className="sm:hidden">MAP</span>
+              <span className="hidden sm:inline">[ OVERVIEW ]</span>
+              <span className="sm:hidden">HUB</span>
             </button>
           ) : (
             <div className="flex items-center space-x-2 text-cyan-400 font-mono text-xs font-bold px-2 py-1 bg-cyan-950/40 rounded-lg border border-cyan-500/30">
               <Compass className="w-4 h-4 animate-spin-slow" />
-              <span className="tracking-widest">NEXUS_OS</span>
+              <span className="tracking-widest">PORTFOLIO</span>
             </div>
           )}
 
-          {/* Current Location Indicator & Breadcrumb */}
+          {/* Current Section Indicator */}
           <div className="hidden md:flex flex-col">
             <span className="text-[10px] font-mono text-cyan-400/90 tracking-wider">
-              LOCATION: {activeSectorCoord}
+              SECTION: {activeSectorCoord}
             </span>
             <span className="text-xs font-orbitron font-bold text-slate-100 tracking-wide flex items-center space-x-1">
               <span>{activeSectorName}</span>
@@ -81,15 +81,15 @@ export const GameHUD: React.FC = () => {
           </div>
         </div>
 
-        {/* Center: System Telemetry Monogram */}
+        {/* Center: Monogram */}
         <div className="hidden lg:flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-900/80 border border-slate-800 text-[11px] font-mono text-slate-300">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span>PILOT: PRATHAP B // B.TECH IT (2027)</span>
+          <span>PRATHAP B // B.TECH IT (2027)</span>
           <span className="text-slate-500">•</span>
           <span className="text-amber-300 font-semibold">CGPA 7.90</span>
         </div>
 
-        {/* Right: Functional HUD Action Shortcuts */}
+        {/* Right: Action Shortcuts */}
         <div className="flex items-center space-x-2 sm:space-x-2.5">
           
           {/* Resume Viewer Shortcut */}
@@ -104,12 +104,12 @@ export const GameHUD: React.FC = () => {
             <span className="sm:hidden">CV</span>
           </button>
 
-          {/* Terminal Easter Egg Trigger */}
+          {/* Terminal Trigger */}
           <button
             onClick={toggleTerminal}
             onMouseEnter={() => soundEngine.playHover()}
             className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-cyan-300 border border-slate-700/80 font-mono text-xs flex items-center space-x-1 transition-colors"
-            title="Launch Command Line Terminal (~)"
+            title="Command Line Terminal (~)"
             aria-label="Toggle Command Line Terminal"
           >
             <Terminal className="w-3.5 h-3.5 text-violet-400" />
